@@ -1,0 +1,8 @@
+# Project dependencies
+**/node_modules/*
+
+# Build output
+**/dist/*
+.DS_Store
+
+.env

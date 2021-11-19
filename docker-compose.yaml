@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${PG_PORT}:${PG_PORT}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./stacks/api
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - ${API_PORT}:${API_PORT}
+    volumes:
+      - ./stacks/api/src:/opt/api/src
+      - ./stacks/api/node_modules/@prisma/client:/opt/api/node_modules/@prisma/client
+    env_file:
+      - .env
+
+volumes:
+  db_data:

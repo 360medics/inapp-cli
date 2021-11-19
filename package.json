@@ -1,0 +1,26 @@
+{
+  "name": "inapp-template",
+  "private": true,
+  "version": "0.0.1",
+  "description": "This template has been made for facilitating the creation of a new InApp project for 360medics. It is under a no license, meaning all the work is copyrighted by 360medics.",
+  "scripts": {
+    "up": "gulp up",
+    "down": "gulp down",
+    "postinstall": "gulp install",
+    "prisma:migrate:dev": "npm run prisma:migrate:dev --prefix ./stacks/api",
+    "prisma:migrate:reset": "npm run prisma:migrate:reset --prefix ./stacks/api",
+    "prisma:generate": "npm run prisma:generate --prefix ./stacks/api"
+  },
+  "author": "360medics",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/gulp": "^4.0.9",
+    "gulp": "^4.0.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
