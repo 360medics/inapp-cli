@@ -18,8 +18,8 @@ This stack contains:
 ## Requirements
 
 - [Docker](https://www.docker.com/), se how to install it for [Mac](https://docs.docker.com/desktop/mac/install/), [Windows](https://docs.docker.com/desktop/windows/install/) or [Linux](https://docs.docker.com/engine/install/#server).
-- [Docker compose plugin](https://docs.docker.com/compose/cli-command/#installing-compose-v2), if you're on MacOS or Windows, and you've installer Docker over Docker Desktop, you can safely ignore this step.
-- [Node.js](https://nodejs.org/en/download/) (any version above 12 should be fine), if you're installer Node.js on Windows, make sure to install npm.
+- [Docker compose plugin](https://docs.docker.com/compose/cli-command/#installing-compose-v2), if you're on MacOS or Windows, and you've installed Docker over Docker Desktop, you can safely ignore this step.
+- [Node.js](https://nodejs.org/en/download/) (any version above 12 should be fine), if you've installed Node.js on Windows, make sure to install npm.
 
 ## Installation
 
@@ -119,6 +119,7 @@ This will add the dependency to the service container as you've done it locally.
 - Prettier and ESLint IDE extensions are recommended for code formatting / linting.
 
 # Guidelines
+
 [API](./stacks/api/GUIDELINE.md)
 
 [Client](./stacks/client/GUIDELINE.md)
