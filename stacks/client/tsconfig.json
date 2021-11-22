@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "sourceMap": true,
-    "baseUrl": "../../inapp/inapp-vue3-template",
+    "baseUrl": "../../../inapp/inapp-vue3-template",
     "resolveJsonModule": true,
     "types": [
       "webpack-env"
