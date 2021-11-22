@@ -117,6 +117,7 @@ This will add the dependency to the service container as you've done it locally.
 
 - An IDE that supports the [TypeScript](https://www.typescriptlang.org/) language is recommended (VSCode, Webstorm).
 - Prettier and ESLint IDE extensions are recommended for code formatting / linting.
+- Vetur extension is recommended for code intelligence on `client` project.
 
 # Guidelines
 
