@@ -29,6 +29,8 @@ This stack contains:
 
 3.  Run the following command to install the required dependencies `npm i`, this will install root project dependencies and all the sub-projects dependencies (thanks to postinstall script).
 
+4.  (optional: only if you're developing a backend too) Execute database migrations using: `npm run prisma:migrate:dev` from the project root directory.
+
 # Development Workflow
 
 **You DO NOT** push to the `master` / `main` branch.
@@ -36,33 +38,6 @@ This stack contains:
 You always create a branch from `master` ideally named `develop` and when you've finished, you create a PR from `develop` to `master`.
 
 If it's possible, you should create small, incremental changes and commit them to `develop` branch that you will try to well name like: `feat(healer): add healer endpoint`. This is not mandatory, but it's a good practice. See more about [Conventional Commits here](https://www.conventionalcommits.org/en/v1.0.0/).
-
-# Using Prisma ORM (backend only)
-
-If you are writing code into `stacks/api`, you might want to access database.
-
-We've created a service under `stacks/api/src/internal/orm.service.ts` that export a variable named orm, it's an instanciated prisma client, and can be used like this:
-
-```ts
-import { orm } from "path/to/service/orm";
-
-// replace $entity with the entity name (user, app, etc...)
-const entity = await orm.$entity.findUnique({ where: { id: 1 } });
-```
-
-Prisma ORM documentation: https://www.prisma.io/docs/concepts/components/prisma-client/crud
-
-## Modifying Database Schema
-
-Before all things, backup the database data only (not schema).
-
-If you need to add/edit/delete a part of the database schema, you might want to look at the `stacks/api/prisma/schema.prisma` file, it contains a declarative schema of the database. Prisma Schema documentation: https://www.prisma.io/docs/concepts/components/prisma-schema/data-model
-
-Once you're done with your changes, you can run the following command to apply changes: `npm run prisma:migrate:dev`, from the project root directory.
-
-If you failed and want to go back to the previous version, delete the generated migrations files under `stacks/api/prisma/migrations` and run `npm run prisma:migrate:reset` from the project root directory (All data will be lost), then import the backup file you saved before.
-
-Make sure to commit the migrations files and the schema file changes.
 
 # Useful commands
 
@@ -119,11 +94,11 @@ This will add the dependency to the service container as you've done it locally.
 - Prettier and ESLint IDE extensions are recommended for code formatting / linting.
 - Vetur extension is recommended for code intelligence on `client` project.
 
-# Guidelines
+# Sub-Projects
 
-[API](./stacks/api/GUIDELINES.md)
+[API](./stacks/api/README.md)
 
-[Client](./stacks/client/GUIDELINES.md)
+[Client](./stacks/client/README.md)
 
 # Need Help ?
 

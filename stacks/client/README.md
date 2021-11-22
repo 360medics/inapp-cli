@@ -2,6 +2,8 @@
 
 This is a [Vue3](https://vuejs.org/) boilerplate application.
 
+This application does hot-reload when a file changed in dev mode. Development mode is enabled by default.
+
 ## Not familiar with Vue3 yet ?
 
 [Please read this introduction](https://v3.vuejs.org/guide/migration/introduction.html)
@@ -17,6 +19,6 @@ This is a [Vue3](https://vuejs.org/) boilerplate application.
 - `types` contains global types declaration
 - `views` (pages), contains all pages used by the `router`
 
-## Guidelines
+# Guidelines
 
 [Here](./GUIDELINES.md) are some guidelines to follow when writing the client app.
