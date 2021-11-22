@@ -58,9 +58,9 @@ Before all things, backup the database data only (not schema).
 
 If you need to add/edit/delete a part of the database schema, you might want to look at the `stacks/api/prisma/schema.prisma` file, it contains a declarative schema of the database. Prisma Schema documentation: https://www.prisma.io/docs/concepts/components/prisma-schema/data-model
 
-Once you're done with your changes, you can run the following command to apply changes: `npm run prisma:migrate:dev` (from the project root directory).
+Once you're done with your changes, you can run the following command to apply changes: `npm run prisma:migrate:dev`, from the project root directory.
 
-If you failed and want to go back to the previous version, delete the generated migrations files under `stacks/api/prisma/migrations` and run `npx prisma migrate reset` (All data will be lost), then import the backup file you saved before.
+If you failed and want to go back to the previous version, delete the generated migrations files under `stacks/api/prisma/migrations` and run `npm run prisma:migrate:reset` from the project root directory (All data will be lost), then import the backup file you saved before.
 
 Make sure to commit the migrations files and the schema file changes.
 
@@ -70,9 +70,9 @@ Make sure to commit the migrations files and the schema file changes.
 
 **DO NOT EXECUTE THIS ON PRODUCTION ENVIRONMENT**
 
-`npm run prisma:migrate:dev` (from the project root directory): Create new migration file if needed, apply pending migrations and generate orm types and API.
+`npm run prisma:migrate:dev`, from the project root directory: Create new migration file if needed, apply pending migrations and generate orm types and API.
 
-`npx prisma generate`: Generate orm types and API.
+`npm run prisma:generate`: Generate orm types and API.
 
 ## Interact with the stack
 
