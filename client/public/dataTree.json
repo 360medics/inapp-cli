@@ -1,0 +1,40 @@
+{
+  "appData": {
+    "id": 1,
+    "name": "Application d'exemple"
+  },
+  "tree": [
+    {
+      "id": 1,
+      "name": "Group first Score",
+      "subtitle": "",
+      "appId": 1,
+      "parentId": null,
+      "type": "list",
+      "content": "",
+      "slug": "group-first-score",
+      "submenu": true,
+      "children": [
+        {
+          "id": 1,
+          "name": "Children Score",
+          "subtitle": "",
+          "category": "helloWorld",
+          "appId": 1,
+          "parentId": 1,
+          "type": "",
+          "content": "",
+          "slug": "ModelScore",
+          "submenu": false,
+          "reference": [
+            {
+              "text": "Reference text sample ",
+              "link": ""
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

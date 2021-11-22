@@ -1,0 +1,61 @@
+// Colors
+$lightColor          : #ffffff;
+$darkColor           : #182637;
+$primaryColor        : #E2996C;
+$secondaryColor      : #E12029;
+$tertiaryColor       : #FBEDE5;
+$itemDisabledColor   : #E4E6E8;
+$textDark            : #6B6B6B;
+$borderColor         : #060D2C33;
+$backgroundItem      : #8a8ab6;
+// FontSize
+$fontSize_small   : 0.9375rem;
+$fontSize_medium  : 1.0625rem;
+$fontSize_large   : 1.275rem;
+$fontSize_big     : 1.81rem;
+// interline
+$lineHeight_medium : 1.9;
+$lineHeight_large  : 3;
+// gutters
+$gutter_small : 0.75rem;
+$gutter_medium: 0.9375rem;
+$gutter_large : 2.3125rem;
+
+// Header Vars
+$headerArrowIcon_color : $primaryColor;
+$headerArrowIconDisabled_color : $itemDisabledColor;
+$headerCrossIcon_color : $secondaryColor;
+$headerIcon_size       : 1.1rem;
+$headerIcon_gutter     : $gutter_large;
+$headerLogo_width      : 9.25rem;
+$headerLogo_height     : 2rem;
+$header_gutter         : $gutter_medium;
+$header_BackgroundColor: $lightColor;
+$header_width          : 100%;
+$header_height         : calc(#{$headerLogo_height} + (#{$header_gutter * 2}));
+$header_shadow         : 0px 1px 1px 1px $borderColor;
+$header_radius         : 1em;
+// Footer Vars
+$footer_fontSize: $fontSize_small;
+$footer_marginTop : calc(#{$gutter_large * 2});
+$footer_color: $textDark;
+// Page Vars
+$page_gutter : $gutter_large;
+$page_height : calc(100vh - #{$header_height});
+$page_width  : calc(100vw - (#{$page_gutter * 2}));
+// LinkExternal
+$linkExternal_color: $primaryColor;
+// Menu
+$menuItem_shadow: 0 0 4px 1px #060D2C33;
+$menuItem_radius: 8px;
+$menuItem_gutter: $gutter_small;
+$menuItem_color: $darkColor;
+$menuItem_fontsize: $fontSize_small;
+$menuItem_backgroundColor: $backgroundItem;
+$menuItemIcon_color: $lightColor;
+$menuItemIcon_backgroundColor: $primaryColor;
+$menuItemIcon_gutter: .5em;
+$submenuItem_backgroundColor: #E5E5E5;
+$submenuItemIcon_gutter: .25em;
+$submenuItem_shadow: 0 4px 4px 1px #060D2C33;
+$submenuItem_corner:  0 0 $menuItemIcon_gutter $menuItemIcon_gutter;

@@ -1,0 +1,22 @@
+@mixin positionFixed($top: null, $right: null, $bottom: null, $left: null) {
+  position: fixed;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+@mixin circleIcon($color: null) {
+  @extend %flexCenter;
+  margin-left: $headerIcon_gutter;
+  color: $color;
+  border: 2px solid $color;
+  border-radius: 50%;
+  &-disabled {
+    @extend %flexCenter;
+    margin-left: $headerIcon_gutter;
+    color: $headerArrowIconDisabled_color;
+    border: 2px solid $headerArrowIconDisabled_color;
+    border-radius: 50%;
+  }
+}

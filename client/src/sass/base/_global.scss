@@ -1,0 +1,16 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Helvetica Neue,sans-serif;
+  background-color: $lightColor;
+}
+
+.page {
+  margin-left: $page_gutter;
+  margin-right: $page_gutter;
+  display: flex;
+  justify-content: center;
+  &__scrollable {
+    margin-top: $header_height;
+  }
+}
