@@ -34,7 +34,7 @@ We use the [declaration API](https://v3.vuejs.org/api/composition-api.html) to c
 1. Each page should have an URI associated, and the URI should be the same as the folder name.
   exemple: `/home` should be associated to `/views/home.vue` while `/about/contact/email` should be associated to `/views/about/contact/email.vue`.
   This way, we can use the `router` to navigate between pages and we can reaload the browser at any stage and still be on the same page.
-2. Each page should have a `back button` (`<router-link to="/">`) to go back to the previous page, this back strategy should not depend on any other datas than the current URI, else it won't work if we come from the URL directly (not following the full path from `Home`).
+2. Each page should have a `back button` (`<router-link to="/my-back-uri-path">`) to go back to the previous page, this back strategy should not depend on any other datas than the current URI, else it won't work if we come from the URL directly (not following the full path from `Home`).
   You are free to create your own `path` (url) state strategy according to the mission needs. However, if you do not comes up with a 'good enough one', contact us, we'll think about it together.
 3. Default router mode is [`hash-mode`](https://router.vuejs.org/guide/essentials/history-mode.html), that's what we want, do not change it please.
 4. External link should be opened in a new tab (`target="_blank"`) and should not refer (`rel="noopener noreferrer"`).
