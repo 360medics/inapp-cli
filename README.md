@@ -121,9 +121,9 @@ This will add the dependency to the service container as you've done it locally.
 
 # Guidelines
 
-[API](./stacks/api/GUIDELINE.md)
+[API](./stacks/api/GUIDELINES.md)
 
-[Client](./stacks/client/GUIDELINE.md)
+[Client](./stacks/client/GUIDELINES.md)
 
 # Need Help ?
 
