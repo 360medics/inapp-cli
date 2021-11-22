@@ -84,14 +84,14 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
 }
 
- /* HTML5 display-role reset for older filterrs */
+/* HTML5 display-role reset for older filterrs */
 article,
 aside,
 details,
@@ -103,50 +103,49 @@ hgroup,
 menu,
 nav,
 section {
-  display: block;
+	display: block;
 }
 
 body {
-  line-height: 1;
+	line-height: 1;
 }
 
 ol,
 ul {
-  list-style: none;
+	list-style: none;
 }
 
 blockquote,
 q {
-  quotes: none;
+	quotes: none;
 }
 
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
-  content: none;
+	content: '';
+	content: none;
 }
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 input {
-  padding: .5rem;
-  border-radius: 5px;
-  outline: none;
-  border: 1px solid #ccc;
+	padding: 0.5rem;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid #ccc;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 input[type='number'] {
-  -moz-appearance:textfield;
+	-moz-appearance: textfield;
 }
 select {
-  font-size: min(100%, 16px);
+	font-size: min(100%, 16px);
 }
-

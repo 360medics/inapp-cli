@@ -26,5 +26,18 @@ services:
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${PG_HOST}:${PG_PORT}/${POSTGRES_DB}?schema=public
 
+  client:
+    build:
+      context: ./stacks/client
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    volumes:
+      - ./stacks/client/src:/opt/client/src
+      - ./stacks/client/public:/opt/client/public
+    environment:
+      - PORT=${CLIENT_PORT}
+
 volumes:
   db_data:
