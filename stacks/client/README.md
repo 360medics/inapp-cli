@@ -1,33 +1,18 @@
-# inapp-vue3-template
+# Vue.js application for the client
+This is a [Vue3](https://vuejs.org/) boilerplate application.
 
-## Project setup
+## Not familiar with Vue3 yet ?
+[Please read this introduction](https://v3.vuejs.org/guide/migration/introduction.html)
 
-```
-yarn install
-```
+## Files Structure
+* `assets` contains static files to be served to the client (images, fonts, etc.)
+* `components` contains components to be used in the Vue.js application
+* `helpers` should only contains `.ts` file, and are util function to be used in components
+* `router` contains routes declaration, see more in the [Vue Router](https://router.vuejs.org/)
+* `scss` contains global styling
+* `store` contains the global state of the application, but should not be used for passing props to child components
+* `types` contains global types declaration
+* `views` (pages), contains all pages used by the `router`
 
-### Compiles and hot-reloads for development
-
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-
-```
-yarn build
-```
-
-### Lints and fixes files
-
-```
-yarn lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## Documentation
-
-- [Guideline](https://docs.google.com/document/d/1QRnS4Dzx8e4DGYxQq7rRnbuTYRkf-D4rGQNp6tdVeJQ/edit#)
+## Guidelines
+[Here](./guidelines.md) are some guidelines to follow when writing the client app.

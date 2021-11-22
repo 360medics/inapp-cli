@@ -1,18 +1,5 @@
 # Guidelines for writing the client
 
-## Not familiar with Vue3 yet ?
-[Please read this introduction](https://v3.vuejs.org/guide/migration/introduction.html)
-
-## Files Structure
-* `assets` contains static files to be served to the client (images, fonts, etc.)
-* `components` contains components to be used in the Vue.js application
-* `helpers` should only contains `.ts` file, and are util function to be used in components
-* `router` contains routes declaration, see more in the [Vue Router](https://router.vuejs.org/)
-* `scss` contains global styling
-* `store` contains the global state of the application, but should not be used for passing props to child components
-* `types` contains global types declaration
-* `views` (pages), contains all pages used by the `router`
-
 ## Adding new static file
 Static files are added to the `assets` folder, and are served to the client.
 
@@ -93,4 +80,4 @@ If the application is showing `pdf` file(s), we recommend to use our pdf viewer 
 Note: You just have to paste the origin `pdf` URL after `https://f.360medics.com/pdfviewer/index.html?f=`
 
 ### Alternative (when you want to open up a new page with PDF)
-In order to open the PDF to a new page create a link (`a`) that redirects to the PDF file. On mobile, you have to use a `deeplink` as explained in the `Behaviors` section.
+In order to open the PDF on a new page (new tab), create a link (`a`) that redirects to the PDF file (`href="LINK"`). On mobile, you have to use a `deeplink` as explained in the `Behaviors` section.
