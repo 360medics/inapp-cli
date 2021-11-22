@@ -6,19 +6,19 @@ This application does hot-reload when a file changed in dev mode. Development mo
 
 ## Files structure
 
-```json
+```
 .
 ├── prisma
-│   ├── schema.prisma // database schema
-│   └── migrations // migration files
-├── scripts // internal scripts
+│   ├── schema.prisma --> database schema
+│   └── migrations --> migration files
+├── scripts --> internal scripts
 └── src
-    ├── internal // internal code
-    ├── middleware // global middlewares
-    ├── routes // API router
-    │   └── user // user router
-    ├── app.ts // express app definition
-    └── index.ts // server definition
+    ├── internal --> internal code
+    ├── middleware --> global middlewares
+    ├── routes --> API router
+    │   └── user --> user router
+    ├── app.ts --> express app definition
+    └── index.ts --> server definition
 ```
 
 ## Routers
