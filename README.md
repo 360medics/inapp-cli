@@ -126,4 +126,4 @@ This will add the dependency to the service container as you've done it locally.
 
 # Need Help ?
 
-You can get support by email at [REPLACE_WITH_EMAIL](mailto:REPLACE_WITH_EMAIL)
+You can get support by email at [tech@360medics.com](mailto:tech@360medics.com)
