@@ -23,6 +23,8 @@ services:
       - ./stacks/api/node_modules/@prisma/client:/opt/api/node_modules/@prisma/client
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${PG_HOST}:${PG_PORT}/${POSTGRES_DB}?schema=public
 
 volumes:
   db_data:
