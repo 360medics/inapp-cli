@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app-container">
 		<Header />
 		<main class="page page__scrollable">
 			<router-view />
@@ -22,6 +22,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#app {
+#app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 0;
 }
 </style>

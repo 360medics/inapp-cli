@@ -55,7 +55,7 @@ export default defineComponent({
 	justify-content: space-between;
 	z-index: 10;
 	&__logo {
-		width: $headerLogo_width;
+		max-width: $headerLogo_width;
 		height: $headerLogo_height;
 		text-decoration: none;
 	}

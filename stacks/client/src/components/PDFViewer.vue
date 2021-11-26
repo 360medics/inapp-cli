@@ -38,3 +38,19 @@ export default defineComponent({
 	},
 });
 </script>
+
+<style lang="scss" scoped>
+.link {
+    word-break: break-word;
+    user-select: none;
+    text-decoration: none;
+    color: $linkExternal_color;
+    &:active {
+        color: $linkExternal_color;
+    }
+    &:focus {
+        color: $linkExternal_color;
+        outline: none;
+    }
+}
+</style>
