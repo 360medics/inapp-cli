@@ -3,13 +3,15 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: "",
   css: {
-    sourceMap: true,
     loaderOptions: {
       sass: {
+        sourceMap: false,
         // eslint-disable-next-line global-require
         implementation: require("sass"), // Prefer `dart-sass`
         additionalData: `
-                    @import "@/sass";
+                    @import "@/sass/helper/_variables.scss";
+                    @import "@/sass/helper/_mixin.scss";
+                    @import "@/sass/helper/_placeholders.scss";
                 `,
       },
     },
