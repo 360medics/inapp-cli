@@ -4,8 +4,8 @@ import axios from 'axios'
 import type { Scores, Score } from '@/types'
 
 export interface State {
-	scores: Scores[];
-	score: Score;
+    scores: Scores[]
+    score: Score
 }
 
 export default createStore({
@@ -35,13 +35,15 @@ export default createStore({
             try {
                 const response = await axios.get('./dataTree.json')
                 let currentScore = []
-                response.data.tree.forEach((category) => category.children.forEach((score) => {
-                    if (score.slug === payload) {
-                        currentScore = score
-                    }
+                response.data.tree.forEach((category) =>
+                    category.children.forEach((score) => {
+                        if (score.slug === payload) {
+                            currentScore = score
+                        }
 
-                    return currentScore
-                }))
+                        return currentScore
+                    }),
+                )
                 commit('SET_SCORE', currentScore)
             } catch (error) {
                 console.error(error) // TypeError: failed

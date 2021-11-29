@@ -4,10 +4,7 @@
         <p>Exemple de lien externe :</p>
         <LinkComponent link-external="https://www.google.com" />
         <p>Exemple de lien externe vers un pdf inclus dans un viewer :</p>
-        <PDFViewer
-            pdf-link="https://med-cdn.ams3.digitaloceanspaces.com/assets/docs/dir69000-69299/69062/main-69062.pdf"
-            pdf-name="open pdf"
-        />
+        <PDFViewer pdf-link="https://med-cdn.ams3.digitaloceanspaces.com/assets/docs/dir69000-69299/69062/main-69062.pdf" pdf-name="open pdf" />
         <ScoreList />
         <ScoreList />
         <ScoreList />
@@ -31,10 +28,9 @@ export default defineComponent({
         }
     },
     mounted() {
-        this.loadData()
-            .then((result) => {
-                this.appInfo = result.appData
-            })
+        this.loadData().then((result) => {
+            this.appInfo = result.appData
+        })
     },
     methods: {
         async loadData() {
@@ -47,7 +43,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .home {
-	width: 100%;
+    width: 100%;
 }
 
 p {
