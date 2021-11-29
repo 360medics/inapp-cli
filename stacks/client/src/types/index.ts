@@ -27,4 +27,4 @@ type Scores = {
     children: [Score]
 }
 
-export { Scores, Score }
+export { Scores, Score };

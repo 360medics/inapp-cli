@@ -4,5 +4,5 @@
     "**/.git": true,
     "**/node_modules": true
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "eslint.codeActionsOnSave.mode": "all"
 }
