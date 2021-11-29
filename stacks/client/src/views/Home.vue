@@ -12,35 +12,35 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
-import { defineComponent } from 'vue';
-import MainTitle from '@/components/MainTitle.vue';
-import LinkComponent from '@/components/LinkComponent.vue';
-import PDFViewer from '@/components/PDFViewer.vue';
-import ScoreList from '@/components/ScoreList.vue';
+import axios from 'axios'
+import { defineComponent } from 'vue'
+import MainTitle from '@/components/MainTitle.vue'
+import LinkComponent from '@/components/LinkComponent.vue'
+import PDFViewer from '@/components/PDFViewer.vue'
+import ScoreList from '@/components/ScoreList.vue'
 
 export default defineComponent({
-  name: 'HomeViews',
-  components: {
-    MainTitle, ScoreList, PDFViewer, LinkComponent,
-  },
-  data() {
-    return {
-      appInfo: {},
-    };
-  },
-  mounted() {
-    this.loadData().then((result) => {
-      this.appInfo = result.appData;
-    });
-  },
-  methods: {
-    async loadData() {
-      const data = await axios.get(`${window.location.origin + window.location.pathname}/dataTree.json`);
-      return data.data;
+    name: 'HomeViews',
+    components: {
+        MainTitle, ScoreList, PDFViewer, LinkComponent,
     },
-  },
-});
+    data() {
+        return {
+            appInfo: {},
+        }
+    },
+    mounted() {
+        this.loadData().then((result) => {
+            this.appInfo = result.appData
+        })
+    },
+    methods: {
+        async loadData() {
+            const data = await axios.get(`${window.location.origin + window.location.pathname}/dataTree.json`)
+            return data.data
+        },
+    },
+})
 </script>
 
 <style scoped lang="scss">
