@@ -8,6 +8,11 @@ import { apiRouter } from 'routes';
 
 export const app = express();
 
+app.get('/', (req: any, res: any, next: any) => {
+  res.send(200, { message: 'Your api is running !' });
+  return next();
+});
+
 // global middlewares registration
 app.use(cors());
 app.use(helmet());

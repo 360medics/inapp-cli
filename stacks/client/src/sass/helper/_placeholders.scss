@@ -1,14 +1,14 @@
 %flexJustifyCenter {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 %flexAlignCenter {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 %flexCenter {
-	@extend %flexJustifyCenter;
-	align-items: center;
+    @extend %flexJustifyCenter;
+    align-items: center;
 }

@@ -84,7 +84,7 @@ You might want to add more project dependencies to a service:
 1.  Navigate to the service you want `cd stacks/<service_name>`
 2.  Run `npm i <new_dependency>`
 3.  Rebuild the service with `docker compose build <service_name>`
-4.  Update the service with `docker-compose up -d <service_name>`
+4.  Update the service with `docker compose up -d <service_name>`
 
 This will add the dependency to the service container as you've done it locally.
 
