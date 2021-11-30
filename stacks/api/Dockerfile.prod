@@ -1,1 +1,33 @@
-# TODO
+# Builder
+FROM node:16-alpine AS builder
+
+WORKDIR /opt/api
+
+COPY . .
+RUN npm i
+RUN npm run build
+RUN npm run prisma:generate:ci
+
+# Runner
+FROM node:16-alpine AS runner
+
+WORKDIR /opt/api
+ENV NODE_ENV production
+
+# take build output
+COPY --from=builder /opt/api/dist ./dist
+# take prisma files
+COPY ./prisma ./prisma
+
+COPY package*.json ./
+
+RUN npm ci
+
+# take prisma client
+COPY --from=builder /opt/api/node_modules/@prisma/client ./node_modules/@prisma/client
+
+USER node
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "start" ]

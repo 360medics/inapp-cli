@@ -41,7 +41,8 @@
     "prettier": "prettier --config .prettierrc --write 'src/**/*.{ts,js,css,scss,json,md}'",
     "prisma:migrate:dev": "node ./scripts/prisma.js ../../.env migrate dev",
     "prisma:migrate:reset": "node ./scripts/prisma.js ../../.env migrate reset",
-    "prisma:generate": "node ./scripts/prisma.js ../../.env generate"
+    "prisma:generate": "node ./scripts/prisma.js ../../.env generate",
+    "prisma:generate:ci": "prisma generate"
   },
   "author": "360medics",
   "license": "UNLICENSED"
