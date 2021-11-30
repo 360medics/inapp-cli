@@ -38,3 +38,8 @@ data "aws_api_gateway_rest_api" "main" {
 data "aws_api_gateway_vpc_link" "main" {
   name = "inapps-main"
 }
+
+# ECR
+data "aws_ecr_repository" "main" {
+  name = "inapps-back"
+}
