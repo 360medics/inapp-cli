@@ -13,7 +13,9 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "helmet": "^4.6.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pino": "^7.5.1",
+    "source-map-support": "^0.5.21"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
@@ -24,10 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "eslint": "^8.2.0",
-    "eslint-config-prettier": "^8.3.0",
     "eslint-config-xo": "^0.39.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.4.1",
     "prisma": "^3.5.0",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
@@ -38,7 +37,7 @@
     "dev": "debug=* NODE_PATH=./src ts-node-dev --exit-child --respawn ./src/index.ts",
     "build": "rimraf dist && tsc",
     "start": "NODE_PATH=./dist node ./dist/index.js",
-    "prettier": "prettier --config .prettierrc --write 'src/**/*.{ts,js,css,scss,json,md}'",
+    "eslint:fix": "eslint --fix --ext .ts ./src",
     "prisma:migrate:dev": "node ./scripts/prisma.js ../../.env migrate dev",
     "prisma:migrate:reset": "node ./scripts/prisma.js ../../.env migrate reset",
     "prisma:generate": "node ./scripts/prisma.js ../../.env generate",

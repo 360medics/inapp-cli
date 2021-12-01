@@ -8,9 +8,9 @@ import { apiRouter } from 'routes';
 
 export const app = express();
 
-app.get('/', (req: any, res: any, next: any) => {
-  res.send(200, { message: 'Your api is running !' });
-  return next();
+// Healthcheck route for load balancer
+app.get('/', (req, res) => {
+  res.send({ message: 'API is healthy!' });
 });
 
 // global middlewares registration

@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['xo', 'prettier', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'xo'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 13,
@@ -12,5 +12,8 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'new-cap': 'off',
+    'object-curly-spacing': ['error', 'always'],
+    indent: ['error', 2],
+    'capitalized-comments': 'off',
   },
 };
