@@ -13,7 +13,7 @@ resource "aws_ecs_service" "inapp-test" {
     # should be the exact same as the container name in task definition
     container_name = "${var.project}-${var.env}"
     # should be the exact same as the container port in task definition
-    container_port = 80
+    container_port = 4000
   }
 
   # wait for nlb to be ready
@@ -40,17 +40,16 @@ resource "aws_ecs_task_definition" "inapp-test" {
   execution_role_arn       = aws_iam_role.inapp-execution-role.arn
   container_definitions = jsonencode([
     {
-      name = "${var.project}-${var.env}"
-      # @TODO: change to previously build image
-      image = "nginx:latest"
+      name  = "${var.project}-${var.env}"
+      image = "${data.aws_ecr_repository.main.repository_url}:${var.project}"
       // makes other containers within this task to be stopped
       // if this one fail for some reasons
       essential = true
       portMappings = [
         {
           protocol      = "tcp"
-          containerPort = 80
-          hostPort      = 80
+          containerPort = 4000
+          hostPort      = 4000
         }
       ],
       logConfiguration = {
@@ -134,8 +133,8 @@ resource "aws_security_group" "ecs_task" {
   vpc_id = data.aws_vpc.main.id
 
   ingress {
-    from_port = 80
-    to_port   = 80
+    from_port = 4000
+    to_port   = 4000
     protocol  = "tcp"
     // @TODO: only authroize NLB ip
     cidr_blocks = ["0.0.0.0/0"]
@@ -167,7 +166,7 @@ resource "aws_lb_listener" "tcp" {
 
 resource "aws_lb_target_group" "main" {
   name        = "${var.project}-${var.env}"
-  port        = 80
+  port        = 4000
   protocol    = "TCP"
   vpc_id      = data.aws_vpc.main.id
   target_type = "ip"

@@ -21,8 +21,14 @@ variable "az" {
   description = "AWS availability zone to deploy networks on"
   type        = string
 }
-variable "aws_profile" {
-  default     = "ac-dev"
-  description = "AWS profile to use for deployment and access to S3 state bucket"
+variable "aws_access_key" {
+  default     = ""
+  description = "AWS access key to use for deployment and access to S3 state bucket"
+  type        = string
+}
+
+variable "aws_secret_key" {
+  default     = ""
+  description = "AWS secret key to use for deployment and access to S3 state bucket"
   type        = string
 }
