@@ -79,5 +79,11 @@ If the application is showing `pdf` file(s), we recommend to use our pdf viewer 
 ```
 Note: You just have to paste the origin `pdf` URL after `https://f.360medics.com/pdfviewer/index.html?f=`
 
+## Making API calls
+In order to make API calls, we provided an `axios` wrapper in the `helpers` folder named `apiClient`.
+It is instantiated with the `baseURL` of the API, and later, it could automatically add headers for example.
+
+[Read more about Axios interceptors](https://axios-http.com/docs/interceptors)
+
 ### Alternative (when you want to open up a new page with PDF)
 In order to open the PDF on a new page (new tab), create a link (`a`) that redirects to the PDF file (`href="LINK"`). On mobile, you have to use a `deeplink` as explained in the `Behaviors` section.

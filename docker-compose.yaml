@@ -38,6 +38,7 @@ services:
       - ./stacks/client/public:/opt/client/public
     environment:
       - PORT=${CLIENT_PORT}
+      - VUE_APP_API_URL=http://localhost:${API_PORT}
 
 volumes:
   db_data:
