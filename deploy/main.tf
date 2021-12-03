@@ -1,18 +1,23 @@
 terraform {
-
-  # the backend (where tf stores state) should be the same per environment
-  # @TODO: can't find a proper way to do this, so we'll just hardcode it
   backend "s3" {
-    bucket  = "360-ac-dev-terraform-state"
-    key     = "tasks/test.tfstate"
-    region  = "eu-west-3"
-    profile = "ac-dev"
   }
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.27"
+    }
+    postgresql = {
+      source  = "cyrilgdn/postgresql",
+      version = "~> 1.14.0"
+    }
+    circleci = {
+      source  = "mrolla/circleci"
+      version = "0.6.1"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.1.0"
     }
   }
 
@@ -23,4 +28,44 @@ provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
   region     = var.region
+}
+
+module "db_tunnel" {
+  source = "git::git@github.com:360medics/terraform-ssh-tunnel.git"
+
+  target_host = data.aws_db_instance.main.address
+  target_port = data.aws_db_instance.main.port
+
+  gateway_host = data.aws_instance.bastion.public_ip
+  gateway_user = "ubuntu"
+
+  ssh_cmd = "ssh -i /tmp/bastion.pem -o StrictHostKeyChecking=no"
+}
+
+provider "postgresql" {
+  alias     = "tunnel"
+  host      = module.db_tunnel.host
+  port      = module.db_tunnel.port
+  username  = "root"
+  password  = "notsecure"
+  superuser = false
+  sslmode   = "disable"
+}
+
+provider "circleci" {
+  api_token    = var.circleci_token
+  organization = var.circleci_organization_name
+}
+
+resource "circleci_context" "task" {
+  provider = circleci
+  name     = var.circleci_context_name
+}
+
+output "host" {
+  value = module.db_tunnel.host
+}
+
+output "port" {
+  value = module.db_tunnel.port
 }

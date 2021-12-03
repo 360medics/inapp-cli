@@ -43,3 +43,16 @@ data "aws_api_gateway_vpc_link" "main" {
 data "aws_ecr_repository" "main" {
   name = "inapps-back"
 }
+
+# RDS Postgres
+data "aws_db_instance" "main" {
+  db_instance_identifier = "inapps-db"
+}
+
+# Basion
+data "aws_instance" "bastion" {
+  filter {
+    name   = "tag:Name"
+    values = ["bastion"]
+  }
+}
