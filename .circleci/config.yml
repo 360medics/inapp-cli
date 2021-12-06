@@ -25,8 +25,8 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build
-        filters:
-          branches:
-            only:
-              - feat/deploy
+      - build:
+          filters:
+            branches:
+              only:
+                - feat/deploy
