@@ -1,8 +1,6 @@
 version: 2
 jobs:
   build:
-    context:
-      - inapps-test
     docker:
       - image: circleci/node:4.8.1
     steps:
@@ -26,6 +24,7 @@ workflows:
   deploy:
     jobs:
       - build:
+          context: inapps-test
           filters:
             branches:
               only:
