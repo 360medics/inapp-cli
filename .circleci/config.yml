@@ -52,7 +52,7 @@ jobs:
       - run: |
           # Applying terraform
           cd deploy
-          ./apply.sh
+          bash apply.sh
 
 workflows:
   version: 2
