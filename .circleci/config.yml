@@ -2,12 +2,14 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:4.8.1
+      - image: cimg/base:stable-20.04
     steps:
       - checkout
       - setup_remote_docker:
           version: 19.03.13
       - run: |
+          # Installing Deps
+          sudo apt-get install awscli -y
           mv .env.deploy .env
           # Populating .env
           sed -i s#%AWS_ACCESS_KEY%#$AWS_ACCESS_KEY#g .env
