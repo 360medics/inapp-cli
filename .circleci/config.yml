@@ -9,7 +9,9 @@ jobs:
           version: 19.03.13
       - run: |
           # Installing Deps
-          sudo apt-get install awscli -y
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
           mv .env.deploy .env
           # Populating .env
           sed -i s#%AWS_ACCESS_KEY%#$AWS_ACCESS_KEY#g .env
