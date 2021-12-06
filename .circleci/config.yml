@@ -36,7 +36,7 @@ commands:
           sudo apt-get install python
 
 jobs:
-  build:
+  build-docker-image:
     docker:
       - image: cimg/base:stable-20.04
     steps:
@@ -67,8 +67,16 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build:
+      - require_deploy:
+          type: approval
+          filters:
+            branches:
+              only:
+                - master
+      - build-docker-image:
           context: inapps-test
+          requires:
+            - require_deploy
           filters:
             branches:
               only:
@@ -76,7 +84,7 @@ workflows:
       - deploy:
           context: inapps-test
           requires:
-            - build
+            - build-docker-image
           filters:
             branches:
               only:
