@@ -26,7 +26,7 @@ aws ecr describe-repositories --repository-name inapps-back | jq -r '.repositori
 ecr_url=`cat state/ecr-repo-url.txt`
 
 # build API image
-docker build ../stacks/api -f ../stacks/api/Dockerfile.prod --tag inapps-back:$PROJECT_NAME
+docker build ../stacks/api -f ../stacks/api/docker/Dockerfile.prod --tag inapps-back:$PROJECT_NAME
 
 # login to the EC registry
 # (region is not needed because defined in env var)

@@ -5,6 +5,8 @@ resource "aws_ecs_service" "task" {
     security_groups = [aws_security_group.ecs_task.id]
   }
 
+  force_new_deployment = true
+
   # say to nlb that we're the target group
   # we can register multiple load balancers but read this first
   # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html
@@ -35,13 +37,17 @@ resource "aws_ecs_service" "task" {
   task_definition = aws_ecs_task_definition.task.arn
 }
 
+data "aws_ecr_image" "task-image-app" {
+  repository_name = data.aws_ecr_repository.main.name
+  image_tag       = var.project
+}
 resource "aws_ecs_task_definition" "task" {
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.inapp-execution-role.arn
   container_definitions = jsonencode([
     {
       name  = "${var.project}-${var.env}"
-      image = "${data.aws_ecr_repository.main.repository_url}:${var.project}"
+      image = "${data.aws_ecr_repository.main.repository_url}:${var.project}@${data.aws_ecr_image.task-image-app.image_digest}"
       // makes other containers within this task to be stopped
       // if this one fail for some reasons
       essential = true,

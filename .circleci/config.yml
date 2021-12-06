@@ -67,17 +67,17 @@ workflows:
   version: 2
   deploy:
     jobs:
-      # - build:
-      #     context: inapps-test
-      #     filters:
-      #       branches:
-      #         only:
-      #           - develop
-      - deploy:
+      - build:
           context: inapps-test
-          # requires:
-          #   - build
           filters:
             branches:
               only:
-                - feat/deploy
+                - master
+      - deploy:
+          context: inapps-test
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
