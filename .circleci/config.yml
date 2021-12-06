@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    context:
+      - inapps-test
+    docker:
+      - image: circleci/node:4.8.1
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - run: |
+          mv .env.deploy .env
+          # Populating .env
+          sed -i s/%AWS_ACCESS_KEY%/$AWS_ACCESS_KEY/g .env
+          sed -i s/%AWS_SECRET_KEY%/$AWS_SECRET_KEY/g .env
+          sed -i s/%CIRCLE_CI_TOKEN%/$CIRCLE_CI_TOKEN/g .env
+          sed -i s/%PROJECT_NAME%/$PROJECT_NAME/g .env
+          sed -i s/%NLB_LISTENER_PORT%/$NLB_LISTENER_PORT/g .env
+          # Building docker image
+          cd deploy
+          ./build-images.sh
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build
+        filters:
+          branches:
+            only:
+              - feat/deploy
