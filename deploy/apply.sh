@@ -25,6 +25,8 @@ export TF_VAR_circleci_context_name=${CIRCLECI_CONTEXT_NAME}
 aws secretsmanager get-secret-value --secret-id bastion_keys| jq --raw-output '.SecretString' | jq -r .private_key_pem > /tmp/bastion.pem
 chmod 600 /tmp/bastion.pem
 
+env
+
 terraform init \
      -backend-config "bucket=$TF_VAR_state_bucket_name" \
      -backend-config "region=$TF_VAR_region" \
