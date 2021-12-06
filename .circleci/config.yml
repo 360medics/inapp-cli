@@ -1,0 +1,83 @@
+version: 2.1
+
+# Reusable commands:
+commands:
+  populate_env:
+    steps:
+      - run: |
+          mv .env.deploy .env
+          # Populate environment variables
+          sed -i s#%AWS_ACCESS_KEY%#$AWS_ACCESS_KEY#g .env
+          sed -i s#%AWS_SECRET_KEY%#$AWS_SECRET_KEY#g .env
+          sed -i s#%CIRCLE_CI_TOKEN%#$CIRCLE_CI_TOKEN#g .env
+          sed -i s#%PROJECT_NAME%#$PROJECT_NAME#g .env
+          sed -i s#%NLB_LISTENER_PORT%#$NLB_LISTENER_PORT#g .env
+  install_aws_cli:
+    steps:
+      - run: |
+          # Install AWS CLI
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -q awscliv2.zip
+          sudo ./aws/install
+  install_terraform:
+    steps:
+      - run: |
+          # Install Terraform
+          curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
+          unzip -q terraform.zip
+          sudo mv terraform /usr/local/bin/
+  install_python:
+    steps:
+      - run: |
+          # Install Python
+          sudo apt-get install software-properties-common
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          sudo apt-get update
+          sudo apt-get install python
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable-20.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - populate_env
+      - install_aws_cli
+      - run: |
+          # Building docker image
+          cd deploy
+          ./build-images.sh $PROJECT_NAME
+  deploy:
+    docker:
+      - image: cimg/base:stable-20.04
+    steps:
+      - checkout
+      - populate_env
+      - install_aws_cli
+      - install_terraform
+      - install_python
+      - run: |
+          # Applying terraform
+          cd deploy
+          bash apply.sh
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build:
+          context: inapps-test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          context: inapps-test
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

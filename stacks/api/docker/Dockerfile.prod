@@ -18,6 +18,8 @@ ENV NODE_ENV production
 COPY --from=builder /opt/api/dist ./dist
 # take prisma files
 COPY ./prisma ./prisma
+# override prisma engine
+RUN sed -i 's/"native"/"linux-musl"/g' ./prisma/schema.prisma
 
 COPY package*.json ./
 
@@ -26,8 +28,11 @@ RUN npm ci
 # take prisma client
 COPY --from=builder /opt/api/node_modules/@prisma/client ./node_modules/@prisma/client
 
+ADD docker/start.sh start.sh
+RUN chmod +x start.sh
+
 USER node
 
 EXPOSE 4000
 
-CMD [ "npm", "run", "start" ]
+ENTRYPOINT [ "/bin/sh", "start.sh" ]

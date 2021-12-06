@@ -30,7 +30,7 @@ terraform init \
      -backend-config "region=$TF_VAR_region" \
      -backend-config "key=tasks/$TF_VAR_project.$TF_VAR_env" \
 
-terraform apply #-auto-approve
+terraform apply -auto-approve
 
 # Remove identity
 rm /tmp/bastion.pem
