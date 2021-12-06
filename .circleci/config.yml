@@ -26,6 +26,14 @@ commands:
           curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
           unzip -q terraform.zip
           sudo mv terraform /usr/local/bin/
+  install_python:
+    steps:
+      - run: |
+          # Install Python
+          sudo apt-get install software-properties-common
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          sudo apt-get update
+          sudo apt-get install python3.9
 
 jobs:
   build:
@@ -49,6 +57,7 @@ jobs:
       - populate_env
       - install_aws_cli
       - install_terraform
+      - install_python
       - run: |
           # Applying terraform
           cd deploy
