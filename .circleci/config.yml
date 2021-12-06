@@ -19,7 +19,7 @@ jobs:
           sed -i s/%NLB_LISTENER_PORT%/$NLB_LISTENER_PORT/g .env
           # Building docker image
           cd deploy
-          ./build-images.sh
+          ./build-images.sh $PROJECT_NAME
 
 workflows:
   version: 2
