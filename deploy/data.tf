@@ -34,6 +34,12 @@ data "aws_api_gateway_rest_api" "main" {
   name = "inapps-main"
 }
 
+# Base API Resource
+data "aws_api_gateway_resource" "inapps-root" {
+  rest_api_id = data.aws_api_gateway_rest_api.main.id
+  path        = "/inapps"
+}
+
 # VPC Link
 data "aws_api_gateway_vpc_link" "main" {
   name = "inapps-main"

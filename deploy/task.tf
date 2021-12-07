@@ -264,16 +264,16 @@ resource "aws_lb_target_group" "main" {
 # -------------------------------------
 #              ROUTING
 # -------------------------------------
-resource "aws_api_gateway_resource" "task-root" {
+resource "aws_api_gateway_resource" "task-api-root" {
   rest_api_id = data.aws_api_gateway_rest_api.main.id
-  parent_id   = data.aws_api_gateway_rest_api.main.root_resource_id
+  parent_id   = aws_api_gateway_resource.task-root.id
 
-  path_part = var.project
+  path_part = "api"
 }
 
 resource "aws_api_gateway_resource" "task" {
   rest_api_id = data.aws_api_gateway_rest_api.main.id
-  parent_id   = aws_api_gateway_resource.task-root.id
+  parent_id   = aws_api_gateway_resource.task-api-root.id
 
   path_part = "{proxy+}"
 }

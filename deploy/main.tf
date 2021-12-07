@@ -62,6 +62,14 @@ resource "circleci_context" "task" {
   name     = var.circleci_context_name
 }
 
+// http://mydomain.com/inapps/${inapp-name} endpoint
+resource "aws_api_gateway_resource" "task-root" {
+  rest_api_id = data.aws_api_gateway_rest_api.main.id
+  parent_id   = data.aws_api_gateway_resource.inapps-root.id
+
+  path_part = var.project
+}
+
 output "host" {
   value = module.db_tunnel.host
 }
