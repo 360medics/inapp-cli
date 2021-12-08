@@ -61,6 +61,7 @@ jobs:
     steps:
       - checkout
       - populate_client_env
+      - populate_env
       - install_aws_cli
       - run: |
           cd deploy
