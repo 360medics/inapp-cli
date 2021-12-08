@@ -110,9 +110,11 @@ resource "aws_api_gateway_method_response" "s3-integration-response" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"      = true
-    "method.response.header.Content-Length" = true
-    "method.response.header.Content-Type"   = true
+    "method.response.header.Timestamp"        = true
+    "method.response.header.Content-Length"   = true
+    "method.response.header.Content-Type"     = true
+    "method.response.header.Content-Encoding" = true
+    "method.response.header.Cache-Control"    = true
   }
 }
 
@@ -123,9 +125,11 @@ resource "aws_api_gateway_integration_response" "s3-integration-response" {
   status_code = aws_api_gateway_method_response.s3-integration-response.status_code
 
   response_parameters = {
-    "method.response.header.Timestamp"      = "integration.response.header.Date"
-    "method.response.header.Content-Length" = "integration.response.header.Content-Length"
-    "method.response.header.Content-Type"   = "integration.response.header.Content-Type"
+    "method.response.header.Timestamp"        = "integration.response.header.Date"
+    "method.response.header.Content-Length"   = "integration.response.header.Content-Length"
+    "method.response.header.Content-Type"     = "integration.response.header.Content-Type"
+    "method.response.header.Content-Encoding" = "integration.response.header.Content-Encoding"
+    "method.response.header.Cache-Control"    = "integration.response.header.Cache-Control"
   }
 
   depends_on = [
