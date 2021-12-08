@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # load .env from root project directory
-export $(egrep -v '^#' ../.env | xargs)
+set -a # automatically export all variables
+source ../.env
+set +a
 
 USAGE="Usage: build-images.sh [IMAGE_NAME:TAG].\n\tIMAGE_NAME:TAG - image name and tag to build.\n\t\tBy default, it will look at PROJECT_NAME env var first."
 
