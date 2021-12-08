@@ -12,6 +12,12 @@ commands:
           sed -i s#%CIRCLE_CI_TOKEN%#$CIRCLE_CI_TOKEN#g .env
           sed -i s#%PROJECT_NAME%#$PROJECT_NAME#g .env
           sed -i s#%NLB_LISTENER_PORT%#$NLB_LISTENER_PORT#g .env
+  populate_client_env:
+    steps:
+      - run: |
+          mv stacks/client/.env.deploy stacks/client/.env
+          # Populate environment variables
+          sed -i s#%API_URL%#$API_URL#g stacks/client/.env
   install_aws_cli:
     steps:
       - run: |
@@ -49,6 +55,13 @@ jobs:
           # Building docker image
           cd deploy
           ./build-images.sh $PROJECT_NAME
+  build-client:
+    docker:
+      - image: cimg/node:16.13.0
+      - populate_client_env
+      - run: |
+          # Building client
+          npm run build --prefix stacks/client
   deploy:
     docker:
       - image: cimg/base:stable-20.04
@@ -81,10 +94,19 @@ workflows:
             branches:
               only:
                 - master
+      - build-client:
+          context: inapps-test
+          requires:
+            - require_deploy
+          filters:
+            branches:
+              only:
+                - master
       - deploy:
           context: inapps-test
           requires:
             - build-docker-image
+            - build-client
           filters:
             branches:
               only:
