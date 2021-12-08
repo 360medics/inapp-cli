@@ -54,7 +54,7 @@ jobs:
       - run: |
           # Building docker image
           cd deploy
-          ./build-images.sh $PROJECT_NAME
+          bash build-images.sh $PROJECT_NAME
   deploy-client-application:
     docker:
       - image: cimg/node:16.13.0
