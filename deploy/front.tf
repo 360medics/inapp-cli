@@ -1,9 +1,3 @@
-module "client-app" {
-  source = "hashicorp/dir/template"
-
-  base_dir = "${path.module}/../stacks/client/dist"
-}
-
 resource "aws_s3_bucket" "client" {
   bucket = "360-medics-inapp-${var.project}"
   acl    = "private"
@@ -12,21 +6,6 @@ resource "aws_s3_bucket" "client" {
     Name        = "InApp ${var.project}"
     Environment = "Dev"
   }
-}
-
-resource "aws_s3_bucket_object" "client-app" {
-  for_each = module.client-app.files
-
-  bucket       = aws_s3_bucket.client.bucket
-  key          = each.key
-  content_type = each.value.content_type
-
-  source  = each.value.source_path
-  content = each.value.content
-
-  # unless the bucket has encryption enabled, the ETag of each object is an
-  # MD5 hash of that object.
-  etag = each.value.digests.md5
 }
 
 # create S3 Read Access Policy

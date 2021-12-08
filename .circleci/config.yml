@@ -55,13 +55,15 @@ jobs:
           # Building docker image
           cd deploy
           ./build-images.sh $PROJECT_NAME
-  build-client:
+  deploy-client-application:
     docker:
       - image: cimg/node:16.13.0
+    steps:
       - populate_client_env
+      - install_aws_cli
       - run: |
-          # Building client
-          npm run build --prefix stacks/client
+          cd deploy
+          bash put-objects-to-client-bucket.sh
   deploy:
     docker:
       - image: cimg/base:stable-20.04
@@ -94,19 +96,18 @@ workflows:
             branches:
               only:
                 - master
-      - build-client:
-          context: inapps-test
-          requires:
-            - require_deploy
-          filters:
-            branches:
-              only:
-                - master
       - deploy:
           context: inapps-test
           requires:
             - build-docker-image
-            - build-client
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-client-application:
+          context: inapps-test
+          requires:
+            - deploy
           filters:
             branches:
               only:
