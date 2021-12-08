@@ -59,6 +59,7 @@ jobs:
     docker:
       - image: cimg/node:16.13.0
     steps:
+      - checkout
       - populate_client_env
       - install_aws_cli
       - run: |
