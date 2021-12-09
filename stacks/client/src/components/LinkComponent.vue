@@ -1,6 +1,6 @@
 <template>
     <div v-if="linkExternal">
-        <a v-if="!isMobile()" class="link" :href="linkExternal" target="_blank">{{ linkExternal }}</a>
+        <a v-if="!isMobile()" class="link" :href="linkExternal" target="_blank" rel="noopener noreferrer">{{ linkExternal }}</a>
         <a v-else class="link" :href="'medics://viewer?m_source=' + linkExternal">{{ linkExternal }}</a>
     </div>
 </template>
