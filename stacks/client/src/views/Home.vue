@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <MainTitle :title="appInfo.name" />
+        <MainTitle v-if="areAppInfosLoaded" :title="appInfos.name" />
         <p>Exemple de lien externe :</p>
         <LinkComponent link-external="https://www.google.com" />
         <p>Exemple de lien externe vers un pdf inclus dans un viewer :</p>
@@ -26,17 +26,19 @@ export default defineComponent({
     },
     data() {
         return {
-            appInfo: {},
+            appInfos: {},
+            areAppInfosLoaded: false,
         }
     },
     mounted() {
         this.loadData().then((result) => {
-            this.appInfo = result.appData
+            this.appInfos = result.appData
+            this.areAppInfosLoaded = true
         })
     },
     methods: {
         async loadData() {
-            const data = await axios.get(`${window.location.origin + window.location.pathname}/dataTree.json`)
+            const data = await axios.get('./dataTree.json')
             return data.data
         },
     },
