@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 import { orm } from 'internal/orm.service';
-
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 export const getUser: RequestHandler = async (req, res) => {
   const { userId } = req.params;
