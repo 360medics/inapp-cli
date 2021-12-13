@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
 import { orm } from 'internal/orm.service';
 
+const bcrypt = require('bcrypt');
+
 export const getUser: RequestHandler = async (req, res) => {
   const { userId } = req.params;
 
@@ -8,7 +10,6 @@ export const getUser: RequestHandler = async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
-
   return res.status(200).json({ user });
 };
 
@@ -17,9 +18,12 @@ export const createUser: RequestHandler = async (req, res) => {
     return res.status(404).json({ message: 'Body can not be empty' });
   }
 
-  const user = await orm.user.create({ data: req.body });
+  const user = req.body;
+  user.password = bcrypt.hashSync(req.body.password, 10);
 
-  return res.status(200).json(user);
+  const userCreated = await orm.user.create({ data: req.body });
+
+  return res.status(200).json(userCreated);
 };
 
 export const updateUser: RequestHandler = async (req, res) => {
