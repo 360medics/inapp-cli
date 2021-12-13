@@ -7,8 +7,10 @@ We use a larger infrastructure that receive task definitions, [read more about i
 This folder contains:
 
 - A terraform module that defines the task and resources needed to deploy the backend and the frontend application into the AWS infrastructure
-- A builder building the backend application and pushing the built docker image to the ECR (`build-images.sh`)
-- A deploy client application script that build `client` application and deploys it to the S3 bucket defined in the `front.tf` file
+- A builder `build-images.sh` building the backend application and pushing the built docker image to the ECR
+- A deploy client application script `put-objects-to-client-bucket.sh` that build `client` application and deploys it to the S3 bucket defined in the `front.tf` file
+- An init script that create CircleCI context and required variables for deployments
+
 ## Requirements
 
 - [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started#install-terraform) (1+)

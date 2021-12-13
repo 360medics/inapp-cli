@@ -122,7 +122,7 @@ resource "circleci_context_environment_variable" "db_password" {
   provider   = circleci
   variable   = "DB_PASSWORD"
   value      = random_password.db_password.result
-  context_id = circleci_context.task.id
+  context_id = data.circleci_context.task.id
 }
 
 // -------------------------------------
@@ -329,4 +329,13 @@ resource "aws_api_gateway_integration_response" "task" {
   depends_on = [
     aws_api_gateway_integration.task
   ]
+}
+
+# store API_URL in circle context
+# @TODO: dynamic per env
+resource "circleci_context_environment_variable" "api-url" {
+  provider   = circleci
+  variable   = "API_URL"
+  value      = "https://inapp-dev.360medics.com/inapps/${var.project}/api"
+  context_id = data.circleci_context.task.id
 }
