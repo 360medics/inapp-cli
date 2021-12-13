@@ -57,9 +57,8 @@ provider "circleci" {
   organization = var.circleci_organization_name
 }
 
-resource "circleci_context" "task" {
-  provider = circleci
-  name     = var.circleci_context_name
+data "circleci_context" "task" {
+  name = var.circleci_context_name
 }
 
 // http://mydomain.com/inapps/${inapp-name} endpoint

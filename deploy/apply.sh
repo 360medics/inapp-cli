@@ -5,6 +5,19 @@ set -a # automatically export all variables
 source ../.env
 set +a
 
+USAGE="Usage: apply.sh [ENV].\n\ENV - env to apply on.\n\t\tBy default, it will look at ENV environment variable first."
+
+if { [ -z "$1" ] && [ -z "$ENV" ] ;}
+  then
+    echo $USAGE
+    exit 1
+fi
+
+if [ -z "$ENV" ]
+  then
+    ENV=$1
+fi
+
 export TF_VAR_env=${ENV}
 export TF_VAR_project=${PROJECT_NAME}
 
@@ -17,7 +30,7 @@ export TF_VAR_state_bucket_name=${AWS_STATE_BUCKET_NAME}
 export TF_VAR_nlb_listener_port=${NLB_LISTENER_PORT}
 
 # Circle CI
-export TF_VAR_circleci_token=${CIRCLECI_TOKEN}
+export TF_VAR_circleci_token=${CIRCLE_CI_TOKEN}
 export TF_VAR_circleci_organization_name=${CIRCLECI_ORGANIZATION_NAME}
 export TF_VAR_circleci_context_name=${CIRCLECI_CONTEXT_NAME}
 
