@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { orm } from 'internal/orm.service';
-import bcrypt from 'bcrypt';
+import { hashPassword } from 'internal/hasher';
 
 export const getUser: RequestHandler = async (req, res) => {
   const { userId } = req.params;
@@ -9,6 +9,7 @@ export const getUser: RequestHandler = async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
+
   return res.status(200).json({ user });
 };
 
@@ -18,7 +19,7 @@ export const createUser: RequestHandler = async (req, res) => {
   }
 
   const user = req.body;
-  user.password = bcrypt.hashSync(req.body.password, 10);
+  user.password = hashPassword(user.password);
 
   const userCreated = await orm.user.create({ data: req.body });
 
@@ -33,11 +34,16 @@ export const updateUser: RequestHandler = async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
 
+  const data = req.body;
+  if (data.password) {
+    data.password = hashPassword(data.password);
+  }
+
   const updatedUser = await orm.user.update({
     where: {
       id: userId,
     },
-    data: req.body,
+    data,
   });
 
   return res.status(200).json(updatedUser);
