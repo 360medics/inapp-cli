@@ -18,8 +18,8 @@ DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${PG_P
 
 ### Deployment
 ENV=dev
-IS_FRONTEND={{if .Frontend}}true{{end}}
-IS_BACKEND={{if .Backend}}true{{end}}
+IS_FRONTEND={{if .Frontend}}true{{else}}false{{end}}
+IS_BACKEND={{if .Backend}}true{{else}}false{{end}}
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_STATE_BUCKET_NAME=360-ac-terraform-states
@@ -30,4 +30,4 @@ CIRCLECI_ORGANIZATION_NAME=360medics
 CIRCLECI_CONTEXT_NAME=inapps-${PROJECT_NAME}
 
 ### This must be >1034 and should not already be used by the NLB on AWS
-NLB_LISTENER_PORT=
+NLB_LISTENER_PORT=0000

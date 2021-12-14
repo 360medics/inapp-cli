@@ -184,7 +184,11 @@ func (i *InApp) writeTemplates() error {
 		}
 	}
 
-	return nil
+	// deploy
+	fmt.Println("processing deploy")
+	err = copy.Copy(filepath.Join(boilerPlateDirectory, "deploy"), filepath.Join(i.directory, "deploy"))
+
+	return err
 }
 
 func (i *InApp) createDotEnv() error {

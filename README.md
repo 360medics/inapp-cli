@@ -25,6 +25,15 @@ Example: `inapp create -n dev-logbook -t full`
 
 You can get help for the command by using `inapp help`, or for a sub-command `inapp create --help`.
 
+## Initiate the development automation
+
+1. Create an AWS user with the same right as the terraform user
+2. Create programmatic access for the user and place it in .env of the previously created projet (using the CLI)
+3. Get a CircleCI Token and place it in .env of the previously created projet (using the CLI)
+4. Fill the `NLB_LISTENER_PORT` value in .env of the previously created projet (using the CLI)
+5. Run the `deploy/init.sh` script, this will create CircleCI context and place needed secret variables
+6. Go to CircleCI interface and track the new project repository
+
 # Contributing
 
 ## Introduction
@@ -37,7 +46,7 @@ But, in order to facilitate maintainability, we also kept a `full` InApp type at
 
 ## Scripts
 
-`copy-stacks-to-boilerplate.sh` - Copy the stacks (`api` and `client`) to the boilerplate folder.
+`copy-to-boilerplate.sh` - Copy the stacks (`api` and `client`) and `deploy` to the boilerplate folder.
 
 ## Project Structure
 
