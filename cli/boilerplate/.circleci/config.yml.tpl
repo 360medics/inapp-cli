@@ -89,7 +89,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - master{{if .Backend}}
       - build-docker-image:
           context: inapps-test
           requires:
@@ -97,15 +97,15 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - master{{end}}
       - deploy:
           context: inapps-test
           requires:
-            - build-docker-image
+            - {{if .Backend}}build-docker-image{{else}}require_deploy{{end}}
           filters:
             branches:
               only:
-                - master
+                - master{{if .Frontend}}
       - deploy-client-application:
           context: inapps-test
           requires:
@@ -113,4 +113,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - master{{end}}
