@@ -21,6 +21,10 @@ fi
 export TF_VAR_env=${ENV}
 export TF_VAR_project=${PROJECT_NAME}
 
+# App Type
+export TF_VAR_is_frontend=${IS_FRONTEND}
+export TF_VAR_is_backend=${IS_BACKEND}
+
 # AWS
 export TF_VAR_access_key=${AWS_ACCESS_KEY_ID}
 export TF_VAR_secret_key=${AWS_SECRET_ACCESS_KEY}

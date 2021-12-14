@@ -18,6 +18,8 @@ DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${PG_P
 
 ### Deployment
 ENV=dev
+IS_FRONTEND={{if .Frontend}}true{{end}}
+IS_BACKEND={{if .Backend}}true{{end}}
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_STATE_BUCKET_NAME=360-ac-terraform-states

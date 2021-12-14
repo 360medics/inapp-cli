@@ -57,3 +57,15 @@ variable "circleci_context_name" {
   type        = string
   description = "CircleCI Context name"
 }
+
+variable "is_frontend" {
+  default     = false
+  type        = bool
+  description = "Is this a frontend project?"
+}
+
+variable "is_backend" {
+  default     = false
+  type        = bool
+  description = "Is this a backend project?"
+}

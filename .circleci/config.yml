@@ -10,7 +10,6 @@ commands:
           sed -i s#%AWS_ACCESS_KEY_ID%#$AWS_ACCESS_KEY_ID#g .env
           sed -i s#%AWS_SECRET_ACCESS_KEY%#$AWS_SECRET_ACCESS_KEY#g .env
           sed -i s#%CIRCLE_CI_TOKEN%#$CIRCLE_CI_TOKEN#g .env
-          sed -i s#%PROJECT_NAME%#$PROJECT_NAME#g .env
           sed -i s#%NLB_LISTENER_PORT%#$NLB_LISTENER_PORT#g .env
   populate_client_env:
     steps:

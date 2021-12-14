@@ -1,5 +1,5 @@
 ### Keep this lower and kebab case (eg. log-book)
-PROJECT_NAME=%PROJECT_NAME%
+PROJECT_NAME={{.Name}}
 
 ### Backend application
 API_PORT=4000
@@ -18,6 +18,8 @@ DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${PG_P
 
 ### Deployment
 ENV=dev
+IS_FRONTEND={{if .Frontend}}true{{else}}false{{end}}
+IS_BACKEND={{if .Backend}}true{{else}}false{{end}}
 AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID%
 AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY%
 AWS_STATE_BUCKET_NAME=360-ac-terraform-states
