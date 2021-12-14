@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"360medics.com/inapp-cli/v2/inapp"
 	"github.com/gobeam/stringy"
@@ -36,23 +37,37 @@ func RunCreate(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	// checking existance of the project
-	// @TODO: decomment this
-	// hasBeenInited := viper.GetBool("init")
-	// if hasBeenInited {
-	// 	fmt.Printf("Project already exists.\n")
-	// 	os.Exit(1)
-	// }
-
-	fmt.Printf("Creating project %s of type %s\n", inappName, inappType)
-
-	app := inapp.NewInApp(inapp.InappOpts{Frontend: inappType == "front" || inappType == "full", Backend: inappType == "back" || inappType == "full", Name: inappName})
-	err := app.Init()
+	// get directory
+	directory, err := os.Getwd()
 	cobra.CheckErr(err)
+
+	cwd, err := rootCmd.PersistentFlags().GetString("cwd")
+	cobra.CheckErr(err)
+
+	relativeWorkDir := filepath.Join(directory, cwd)
+
+	// checking existance of the project
+	dir, err := os.Stat(filepath.Join(relativeWorkDir, inappName))
+	if err == nil && dir.IsDir() {
+		fmt.Printf("A folder '%s' already exists in '%s'\n", inappName, relativeWorkDir)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Creating project %s of type %s in %s\n", inappName, inappType, relativeWorkDir)
+
+	app := inapp.NewInApp(inapp.InappOpts{Frontend: inappType == "front" || inappType == "full", Backend: inappType == "back" || inappType == "full", Name: inappName, BaseDirectory: relativeWorkDir}, &boilerplateFS)
+
+	err = app.Init()
+	cobra.CheckErr(err)
+
+	viper.AddConfigPath(app.Directory())
+	viper.SetConfigType("yaml")
+	viper.SetConfigName(".inapp")
 
 	viper.Set("inapp-name", inappName)
 	viper.Set("type", inappType)
 	viper.Set("init", true)
 
-	viper.WriteConfig()
+	err = viper.SafeWriteConfig()
+	cobra.CheckErr(err)
 }

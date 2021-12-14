@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"embed"
 	"fmt"
 	"os"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+var boilerplateFS embed.FS
 var cfgFile string
 
 var rootCmd = &cobra.Command{
@@ -17,33 +19,24 @@ var rootCmd = &cobra.Command{
 	Long:  `Create and Modify InApp easily.`,
 }
 
-func Execute() {
+func Execute(boilerplate embed.FS) {
+	boilerplateFS = boilerplate
 	cobra.CheckErr(rootCmd.Execute())
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is /.inapp.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is .inapp.yaml)")
+	rootCmd.PersistentFlags().String("cwd", ".", "cwd")
 }
 
 // initConfig reads in config file and ENV variables if set
 func initConfig() {
+
 	if cfgFile != "" {
 		// Use config file from the flag
 		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find root directory
-		directory, err := os.Getwd()
-		cobra.CheckErr(err)
-
-		// Search config
-		viper.AddConfigPath(directory)
-		viper.SetConfigType("yaml")
-		viper.SetConfigName(".inapp")
-
-		// Create config file if not exist
-		viper.SafeWriteConfig()
 	}
 
 	// read in environment variables that match

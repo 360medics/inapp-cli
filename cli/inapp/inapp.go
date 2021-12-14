@@ -1,6 +1,7 @@
 package inapp
 
 import (
+	"embed"
 	"fmt"
 	"io"
 	"os"
@@ -13,35 +14,35 @@ import (
 )
 
 type InApp struct {
-	frontend  bool
-	backend   bool
-	name      string
-	directory string
+	frontend      bool
+	backend       bool
+	name          string
+	directory     string
+	baseDirectory string
+	boilerplateFS *embed.FS
 }
 
 type InappOpts struct {
-	Frontend bool
-	Backend  bool
-	Name     string
+	Frontend      bool
+	Backend       bool
+	Name          string
+	BaseDirectory string
 }
 
-func NewInApp(opts InappOpts) *InApp {
+func NewInApp(opts InappOpts, boilerplate *embed.FS) *InApp {
 	return &InApp{
-		frontend: opts.Frontend,
-		backend:  opts.Backend,
-		name:     opts.Name,
+		frontend:      opts.Frontend,
+		backend:       opts.Backend,
+		name:          opts.Name,
+		baseDirectory: opts.BaseDirectory,
+		boilerplateFS: boilerplate,
 	}
 }
 
 func (i *InApp) Init() error {
-	directory, err := os.Getwd()
-	if err != nil {
-		return err
-	}
+	i.directory = filepath.Join(i.baseDirectory, i.name)
 
-	i.directory = filepath.Join(directory, i.name)
-
-	err = i.createDirectoryStructure()
+	err := i.createDirectoryStructure()
 	if err != nil {
 		return err
 	}
@@ -113,15 +114,13 @@ func (i *InApp) createDirectoryStructure() error {
 }
 
 func (i *InApp) writeTemplates() error {
-	directory, err := os.Getwd()
+	boilerPlateDirectory := "boilerplate"
+	rootPattern := filepath.Join(boilerPlateDirectory, "*.tpl")
+
+	rootTemplates, err := template.ParseFS(i.boilerplateFS, rootPattern)
 	if err != nil {
 		return err
 	}
-	// root directory
-	boilerPlateDirectory := filepath.Join(directory, "boilerplate")
-
-	rootPattern := filepath.Join(boilerPlateDirectory, "*.tpl")
-	rootTemplates := template.Must(template.ParseGlob(rootPattern))
 
 	for _, t := range rootTemplates.Templates() {
 		fmt.Printf("processing root template: %v\n", t.Name())
@@ -170,7 +169,7 @@ func (i *InApp) writeTemplates() error {
 	// stacks/client
 	if i.Frontend() {
 		fmt.Println("processing client application")
-		err = copy.Copy(filepath.Join(boilerPlateDirectory, "stacks", "client"), filepath.Join(i.directory, "stacks", "client"))
+		err := copy.Copy(filepath.Join(boilerPlateDirectory, "stacks", "client"), filepath.Join(i.directory, "stacks", "client"))
 		if err != nil {
 			return err
 		}
@@ -179,7 +178,7 @@ func (i *InApp) writeTemplates() error {
 	// stacks/api
 	if i.Backend() {
 		fmt.Println("processing backend application")
-		err = copy.Copy(filepath.Join(boilerPlateDirectory, "stacks", "api"), filepath.Join(i.directory, "stacks", "api"))
+		err := copy.Copy(filepath.Join(boilerPlateDirectory, "stacks", "api"), filepath.Join(i.directory, "stacks", "api"))
 		if err != nil {
 			return err
 		}
@@ -216,4 +215,8 @@ func (i *InApp) Backend() bool {
 
 func (i *InApp) Name() string {
 	return i.name
+}
+
+func (i *InApp) Directory() string {
+	return i.directory
 }
