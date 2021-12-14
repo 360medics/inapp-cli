@@ -1,104 +1,55 @@
-# About this template
-
-This template has been made for facilitating the creation of a new InApp project for 360medics. It is under a no license, meaning all the work is copyrighted by 360medics.
-
-Please, read the whole `README` before starting to work on your project, this contains all the information you need to start, we will both benefit of it.
-
-If you only need a frontend for your mission, you can go to `docker-compose.yaml` and safely remove `db` and `api` services from this file.
-
-## A word about the stack
-
-This stack contains:
-
-- A PostgreSQL 13 database, running on a Docker container on port `PG_PORT` (default: 5432). This database saves the data into a Docker volume.
-- An API, running on a Docker container based on Node.js 16 on port `API_PORT` (default: 4000)
-
-# Getting Started
-
-## Requirements
-
-- [Docker](https://www.docker.com/), se how to install it for [Mac](https://docs.docker.com/desktop/mac/install/), [Windows](https://docs.docker.com/desktop/windows/install/) or [Linux](https://docs.docker.com/engine/install/#server).
-- [Docker compose plugin](https://docs.docker.com/compose/cli-command/#installing-compose-v2), if you're on MacOS or Windows, and you've installed Docker over Docker Desktop, you can safely ignore this step.
-- [Node.js](https://nodejs.org/en/download/) (any version above 12 should be fine), if you've installed Node.js on Windows, make sure to install npm.
+# InApp CLI
 
 ## Installation
 
-1.  You have to copy the `.env.local` file to `.env` file, this is the file that contains stack variables.
+You can find binary on the realease page. You can install it manually or use one of the following commands, which downloads the binary and place it in `/usr/local/bin` which should be in your `PATH`.
 
-2.  Please, add a `PROJECT_NAME` value to the variables in the `.env` file, this will be used to create proper PostgreSQL database names.
+- MacOS (darwin-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.1/inapp-0.0.1-darwin-amd64.tar.gz | tar -zxC /usr/local/bin`
+- Linux (linux-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.1/inapp-0.0.1-linux-amd64.tar.gz | tar -zxC /usr/local/bin`
 
-3.  Run the following command to install the required dependencies `npm i`, this will install root project dependencies and all the sub-projects dependencies (thanks to postinstall script).
+### Or, Build from source
 
-4.  (optional: only if you're developing a backend too) Execute database migrations using: `npm run prisma:migrate:dev` from the project root directory.
+Requirements:
 
-# Development Workflow
+- Go (1.17)
 
-**You DO NOT** push to the `master` / `main` branch.
+1. Clone the repository
+2. Go to the `cli` sub-folder
+3. `go build`
 
-You always create a branch from `master` ideally named `develop` and when you've finished, you create a PR from `develop` to `master`.
+## Usage
 
-If it's possible, you should create small, incremental changes and commit them to `develop` branch that you will try to well name like: `feat(healer): add healer endpoint`. This is not mandatory, but it's a good practice. See more about [Conventional Commits here](https://www.conventionalcommits.org/en/v1.0.0/).
+`inapp create` is a command that will create a boilerplate for your InApp. Before getting started, you should know the project name and the type (`front`, `back` or `full`).
 
-# Useful commands
+Example: `inapp create -n dev-logbook -t full`
 
-## Database Migrations (backend only)
+You can get help for the command by using `inapp help`, or for a sub-command `inapp create --help`.
 
-**DO NOT EXECUTE THIS ON PRODUCTION ENVIRONMENT**
+# Contributing
 
-`npm run prisma:migrate:dev`, from the project root directory: Create new migration file if needed, apply pending migrations and generate orm types and API.
+## Introduction
 
-`npm run prisma:generate`: Generate orm types and API.
+This CLI should facilitate the creation of any future InApp. It create a boilerplate needed based on the InApp type, which also has the deployment (CI/CD) automation needed to deploy the InApp.
 
-## Interact with the stack
+The boilerplates files are located in the `cli/boilerplate` folder and it's embed in the CLI binary.
 
-Note: All `docker compose` commands must be launched from the project root directory.
+But, in order to facilitate maintainability, we also kept a `full` InApp type at the project root. So we can clone this projet and edit the boilerplate files without having to generate an InApp.
 
-### Start the stack
+## Scripts
 
-`docker compose up -d`, `-d` is for detached logs, but you can ommit it if you want to see the logs in the terminal, but do note that if you cancel the interactive mode, the stack will stop.
+`copy-stacks-to-boilerplate.sh` - Copy the stacks (`api` and `client`) to the boilerplate folder.
 
-### Stop the stack
+## Project Structure
 
-`docker compose down`, this will stop all containers and clean network, but it will not remove the volumes.
+- `cli` - The CLI Golang application, using [viper](https://github.com/spf13/viper) for configuration handling and [cobra](https://github.com/spf13/cobra) for CLI logic.
+- `deploy` - The deployment logic for the InApp, which has one Terraform module and utility scripts.
+- `stacks` - Contains InApp specific application, which usually is only `client` but can also be `api` when the InApp is full stack.
 
-### Remove (completely) the stack
+## Creating a new release
 
-You might come at a point where you wrongly played with the stack, and you want to remove it.
+In order to create a new release that automatically builds the CLI and distribute binaries to the release assets folder, you'll need to manually create a new release with a version on GitHub.
 
-`docker compose down --rmi all`, this will remove all containers, images, volumes and networks.
-
-### See logs of a service
-
-`docker compose logs -f <service>`, this will show the logs of the service, and will follow the logs.
-
-### Remove all PostgreSQL datas
-
-First of all, you have to stop the stack (see the command above). Then, you need to identify which volume holds the PostgreSQL data: `docker volume ls` will display all Docker volumes. Find the volume named something like `<project_name>_db_data`, and then run the following command: `docker volume rm <volume_name>`.
-
-In order to re-create the volume with blank datas, just start the stack.
-
-# Installing a new service dependency
-
-You might want to add more project dependencies to a service:
-
-1.  Navigate to the service you want `cd stacks/<service_name>`
-2.  Run `npm i <new_dependency>`
-3.  Rebuild the service with `docker compose build <service_name>`
-4.  Update the service with `docker compose up -d <service_name>`
-
-This will add the dependency to the service container as you've done it locally.
-
-# Development setup recommendation
-
-- An IDE that supports the [TypeScript](https://www.typescriptlang.org/) language is recommended (VSCode, Webstorm).
-- Prettier and ESLint IDE extensions are recommended for code formatting / linting.
-- Vetur extension is recommended for code intelligence on `client` project.
-
-# Sub-Projects
-
-[API](./stacks/api/README.md)
-
-[Client](./stacks/client/README.md)
+When you're done, you probably should edit this README.md file to update binaries links.
 
 # Need Help ?
 
