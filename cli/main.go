@@ -6,7 +6,7 @@ import (
 	"360medics.com/inapp-cli/v2/cmd"
 )
 
-//go:embed boilerplate/*
+//go:embed boilerplate/**
 var boilerplateFS embed.FS
 
 func main() {
