@@ -11,7 +11,7 @@ You can find binary on the realease page. You can install it manually or use one
 
 Requirements:
 
-- Go (1.17)
+- Go (1.18beta1 or later) : We needed [this feature](https://go-review.googlesource.com/c/go/+/359413) 
 
 1. Clone the repository
 2. Go to the `cli` sub-folder

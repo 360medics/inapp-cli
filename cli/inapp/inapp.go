@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/otiai10/copy"
+	"360medics.com/inapp-cli/v2/copy"
 )
 
 type InApp struct {
@@ -136,7 +136,10 @@ func (i *InApp) writeTemplates() error {
 
 	// .vscode
 	vscodePattern := filepath.Join(boilerPlateDirectory, ".vscode", "*.tpl")
-	vscodeTemplates := template.Must(template.ParseGlob(vscodePattern))
+	vscodeTemplates, err := template.ParseFS(i.boilerplateFS, vscodePattern)
+	if err != nil {
+		return err
+	}
 
 	for _, t := range vscodeTemplates.Templates() {
 		fmt.Printf("processing vscode template: %v\n", t.Name())
@@ -152,7 +155,10 @@ func (i *InApp) writeTemplates() error {
 
 	// .circleci
 	circleciPattern := filepath.Join(boilerPlateDirectory, ".circleci", "*.tpl")
-	circleciTemplates := template.Must(template.ParseGlob(circleciPattern))
+	circleciTemplates, err := template.ParseFS(i.boilerplateFS, circleciPattern)
+	if err != nil {
+		return err
+	}
 
 	for _, t := range circleciTemplates.Templates() {
 		fmt.Printf("processing circleci template: %v\n", t.Name())
@@ -166,19 +172,19 @@ func (i *InApp) writeTemplates() error {
 		}
 	}
 
-	// stacks/client
+	// client
 	if i.Frontend() {
-		fmt.Println("processing client application")
-		err := copy.Copy(filepath.Join(boilerPlateDirectory, "stacks", "client"), filepath.Join(i.directory, "stacks", "client"))
+		fmt.Println("processing client")
+		err := copy.CopyFromEmbedded(i.boilerplateFS, filepath.Join(boilerPlateDirectory, "stacks", "client"), filepath.Join(i.directory, "stacks", "client"))
 		if err != nil {
 			return err
 		}
 	}
 
-	// stacks/api
+	// api
 	if i.Backend() {
-		fmt.Println("processing backend application")
-		err := copy.Copy(filepath.Join(boilerPlateDirectory, "stacks", "api"), filepath.Join(i.directory, "stacks", "api"))
+		fmt.Println("processing api")
+		err := copy.CopyFromEmbedded(i.boilerplateFS, filepath.Join(boilerPlateDirectory, "stacks", "api"), filepath.Join(i.directory, "stacks", "api"))
 		if err != nil {
 			return err
 		}
@@ -186,7 +192,7 @@ func (i *InApp) writeTemplates() error {
 
 	// deploy
 	fmt.Println("processing deploy")
-	err = copy.Copy(filepath.Join(boilerPlateDirectory, "deploy"), filepath.Join(i.directory, "deploy"))
+	err = copy.CopyFromEmbedded(i.boilerplateFS, filepath.Join(boilerPlateDirectory, "deploy"), filepath.Join(i.directory, "deploy"))
 
 	return err
 }

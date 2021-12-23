@@ -6,7 +6,8 @@ import (
 	"360medics.com/inapp-cli/v2/cmd"
 )
 
-//go:embed boilerplate/**
+// the line below will show an error if you don't have Go 1.18beta1+
+//go:embed all:boilerplate/*
 var boilerplateFS embed.FS
 
 func main() {

@@ -22,7 +22,7 @@ This stack contains:
 
 ## Installation
 
-1.  Run the following command to install the required dependencies `npm i`, this will install root project dependencies and all the sub-projects dependencies (thanks to postinstall script).
+1.  Build the stack and run it: `docker compose up -d --build`.
 {{if .Backend}}2.  Execute database migrations using: `npm run prisma:migrate:dev` from the project root directory.{{end}}
 
 # Development Workflow
