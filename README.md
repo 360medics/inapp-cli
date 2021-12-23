@@ -4,8 +4,8 @@
 
 You can find binary on the realease page. You can install it manually or use one of the following commands, which downloads the binary and place it in `/usr/local/bin` which should be in your `PATH`.
 
-- MacOS (darwin-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.2/inapp-0.0.2-darwin-amd64.tar.gz | tar -zxC /usr/local/bin`
-- Linux (linux-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.2/inapp-0.0.2-linux-amd64.tar.gz | tar -zxC /usr/local/bin`
+- MacOS (darwin-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.4/inapp-0.0.4-darwin-amd64.tar.gz | tar -zxC /usr/local/bin`
+- Linux (linux-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.4/inapp-0.0.4-linux-amd64.tar.gz | tar -zxC /usr/local/bin`
 
 ### Or, Build from source
 
