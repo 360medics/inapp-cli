@@ -8,8 +8,8 @@ Please, read the whole `README` before starting to work on your project, this co
 
 This stack contains:
 
-{{if .Backend}}- A PostgreSQL 13 database, running on a Docker container on port `PG_PORT` (default: 5432). This database saves the data into a Docker volume.
-- An API, running in a Docker container based on Node.js 16 on port `API_PORT` (default: 4000){{end}}
+{{if .Backend}}- A PostgreSQL 13 database, running on a Docker container on port __PG_PORT__ (default: 5432). This database saves the data into a Docker volume.
+- An API, running in a Docker container based on Node.js 16 on port __API_PORT__ (default: 4000){{end}}
 {{if .Frontend}}- A Client, running in a Docker container based on Node.js 16{{end}}
 
 # Getting Started
@@ -22,8 +22,16 @@ This stack contains:
 
 ## Installation
 
-1.  Build the stack and run it: `docker compose up -d --build`.
-{{if .Backend}}2.  Execute database migrations using: `npm run prisma:migrate:dev` from the project root directory.{{end}}
+1.  Build the stack and run it: 
+```
+docker compose up -d --build
+```
+
+{{if .Backend}}2.  Execute database migrations using: 
+```
+npm run prisma:migrate:dev
+```
+from the project root directory.{{end}}
 
 # Development Workflow
 
@@ -38,31 +46,45 @@ If it's possible, you should create small, incremental changes and commit them t
 {{if .Backend}}## Database Migrations
 
 **DO NOT EXECUTE THIS ON PRODUCTION ENVIRONMENT**
+```
+npm run prisma:migrate:dev
+```
+, from the project root directory: Create new migration file if needed, apply pending migrations and generate orm types and API.
 
-`npm run prisma:migrate:dev`, from the project root directory: Create new migration file if needed, apply pending migrations and generate orm types and API.
+````
+npm run prisma:generate
+```
+: Generate orm types and API.{{end}}
 
-`npm run prisma:generate`: Generate orm types and API.{{end}}
 ## Interact with the stack
 
-Note: All `docker compose` commands must be launched from the project root directory.
+Note: All __docker compose__ commands must be launched from the project root directory.
 
 ### Start the stack
-
-`docker compose up -d`, `-d` is for detached logs, but you can ommit it if you want to see the logs in the terminal, but do note that if you cancel the interactive mode, the stack will stop.
+```
+docker compose up -d
+```
+, __-d__ is for detached logs, but you can ommit it if you want to see the logs in the terminal, but do note that if you cancel the interactive mode, the stack will stop.
 
 ### Stop the stack
-
-`docker compose down`, this will stop all containers and clean network, but it will not remove the volumes.
+```
+docker compose down
+```
+, this will stop all containers and clean network, but it will not remove the volumes.
 
 ### Remove (completely) the stack
 
 You might come at a point where you wrongly played with the stack, and you want to remove it.
-
-`docker compose down --rmi all`, this will remove all containers, images, volumes and networks.
+```
+docker compose down --rmi all
+```
+, this will remove all containers, images, volumes and networks.
 
 ### See logs of a service
-
-`docker compose logs -f <service>`, this will show the logs of the service, and will follow the logs.
+```
+docker compose logs -f <service>
+```
+, this will show the logs of the service, and will follow the logs.
 
 ### Remove all PostgreSQL datas
 
