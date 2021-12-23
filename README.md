@@ -4,8 +4,15 @@
 
 You can find binary on the realease page. You can install it manually or use one of the following commands, which downloads the binary and place it in `/usr/local/bin` which should be in your `PATH`.
 
-- MacOS (darwin-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.4/inapp-0.0.4-darwin-amd64.tar.gz | tar -zxC /usr/local/bin`
-- Linux (linux-amd64): `curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.4/inapp-0.0.4-linux-amd64.tar.gz | tar -zxC /usr/local/bin`
+- MacOS (darwin-amd64): 
+```
+curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.4/inapp-0.0.4-darwin-amd64.tar.gz | tar -zxC /usr/local/bin
+```
+
+- Linux (linux-amd64): 
+```
+curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.4/inapp-0.0.4-linux-amd64.tar.gz | tar -zxC /usr/local/bin
+```
 
 ### Or, Build from source
 
@@ -21,7 +28,10 @@ Requirements:
 
 `inapp create` is a command that will create a boilerplate for your InApp. Before getting started, you should know the project name and the type (`front`, `back` or `full`).
 
-Example: `inapp create -n dev-logbook -t full`
+Example: 
+```
+inapp create -n dev-logbook -t full
+```
 
 You can get help for the command by using `inapp help`, or for a sub-command `inapp create --help`.
 
