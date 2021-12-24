@@ -35,7 +35,7 @@ inapp create -n dev-logbook -t full
 
 You can get help for the command by using `inapp help`, or for a sub-command `inapp create --help`.
 
-## Initiate the development automation
+## Initiate the deployment automation (internal team only)
 
 1. Create an AWS user with the same right as the terraform user
 2. Create programmatic access for the user and place it in .env of the previously created projet (using the CLI)
