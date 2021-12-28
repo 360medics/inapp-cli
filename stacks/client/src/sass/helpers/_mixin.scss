@@ -22,7 +22,7 @@
 }
 
 // Button
-@mixin btn($btn-padding: 0.5rem, $btn-fontSize: $button_fontSize, $btn-color: $button_color, $btn-bgColor: $button_bgColor,$btn-corner: 8px, $btn-fontWeight: $button_fontweight) {
+@mixin btn($btn-padding: 0.5rem, $btn-fontSize: $button_fontSize, $btn-color: $button_color, $btn-bgColor: $button_bgColor,$btn-corner: $button_corner, $btn-fontWeight: $button_fontweight) {
     @extend %flexCenter;
     padding: $btn-padding;
     font-size: $btn-fontSize;
