@@ -71,9 +71,8 @@ export default defineComponent({
         margin-top: $menuItem_gutter;
     }
     &__item {
-        display: flex;
+        @extend %flexAlignCenter;
         justify-content: space-between;
-        align-items: center;
         padding: $menuItem_gutter;
         border-radius: $menuItem_radius;
         box-shadow: $menuItem_shadow;
@@ -95,9 +94,7 @@ export default defineComponent({
     margin-top: -$menuItem_gutter;
     &__items {
         background-color: $menuItem_backgroundColor;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @extend %flexCenter;
         padding: 0 $menuItemIcon_gutter;
         &:first-child {
             padding-top: $menuItemIcon_gutter;
@@ -118,8 +115,7 @@ export default defineComponent({
         margin: $submenuItemIcon_gutter;
         border-radius: $menuItem_radius;
         &__arrow {
-            display: flex;
-            align-items: center;
+            @extend %flexAlignCenter;
         }
     }
     &--hidden {
