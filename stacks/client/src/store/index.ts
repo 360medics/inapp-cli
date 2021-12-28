@@ -6,12 +6,14 @@ import type { Scores, Score } from '@/types'
 export interface State {
     scores: Scores[]
     score: Score
+    selectedMenu: number
 }
 
 export default createStore({
     state: {
         scores: [],
         score: {} as Score,
+        selectedMenu: 0,
     },
     mutations: {
         SET_SCORES(state: State, scores: Scores[]) {
@@ -19,6 +21,9 @@ export default createStore({
         },
         SET_SCORE(state: State, score: Score) {
             state.score = score
+        },
+        SET_COLLAPSIBLE(state, data) {
+            state.selectedMenu = data
         },
     },
     actions: {
@@ -47,6 +52,9 @@ export default createStore({
                 console.error(error) // TypeError: failed
             }
         },
+        updateCollapsibleMenu({ commit }: { commit: Commit }, itemSelected: number) {
+            commit('SET_COLLAPSIBLE', itemSelected)
+        },
     },
 })
 
@@ -63,5 +71,12 @@ export const useScoreStore = () => {
     return {
         score: computed(() => store.state.score),
         getScore: (slug: string | string[]) => store.dispatch('getScore', slug),
+    }
+}
+export const useOpenMenuStore = () => {
+    const store = useStore<State>()
+    return {
+        selectedMenu: computed(() => store.state.selectedMenu),
+        updateCollapsibleMenu: (item) => store.dispatch('updateCollapsibleMenu', item),
     }
 }
