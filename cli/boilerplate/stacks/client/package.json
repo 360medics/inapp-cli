@@ -9,6 +9,7 @@
     "eslint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@ivanv/vue-collapse-transition": "^1.0.2",
     "axios": "^0.24.0",
     "core-js": "^3.8.3",
     "eslint-config-airbnb-base": "^15.0.0",
