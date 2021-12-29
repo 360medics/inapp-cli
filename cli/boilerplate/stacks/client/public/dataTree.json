@@ -17,7 +17,7 @@
       "children": [
         {
           "id": 1,
-          "name": "Children Score",
+          "name": "First Children First Score",
           "subtitle": "",
           "category": "helloWorld",
           "appId": 1,
@@ -33,6 +33,57 @@
             }
           ],
           "children": []
+        }
+      ]
+    }, 
+    {
+      "id": 2,
+      "name": "Group second Score",
+      "subtitle": "",
+      "appId": 1,
+      "parentId": null,
+      "type": "list",
+      "content": "",
+      "slug": "group-second-score",
+      "submenu": true,
+      "children": [
+        {
+          "id": 20,
+          "name": "first Children second Score",
+          "subtitle": "",
+          "category": "helloWorld",
+          "appId": 1,
+          "parentId": 2,
+          "type": "",
+          "content": "",
+          "slug": "ModelScore",
+          "submenu": true,
+          "reference": [
+            {
+              "text": "Reference text sample ",
+              "link": ""
+            }
+          ],
+          "children": [
+            {
+              "id": 200,
+              "name": "Children of first Children second Score",
+              "subtitle": "",
+              "category": "helloWorld",
+              "appId": 1,
+              "parentId": 20,
+              "type": "",
+              "content": "",
+              "slug": "ModelScore",
+              "submenu": true,
+              "reference": [
+                {
+                  "text": "Reference text sample ",
+                  "link": ""
+                }
+              ]
+            }
+          ]
         }
       ]
     }

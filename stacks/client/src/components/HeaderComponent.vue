@@ -60,14 +60,14 @@ export default defineComponent({
         text-decoration: none;
     }
     &__icon {
-        width: $headerIcon_size;
-        height: $headerIcon_size;
+        line-height: $headerIcon_height;
+        width: $headerIcon_width;
         &--left {
             @include circleIcon($headerArrowIcon_color);
         }
         &--right {
             margin-right: $headerIcon_gutter;
-            font-size: $headerIcon_size * 1.4;
+            font-size: $headerIcon_width;
             color: $headerCrossIcon_color;
         }
     }

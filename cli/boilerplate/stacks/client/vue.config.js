@@ -11,9 +11,7 @@ module.exports = defineConfig({
                 // eslint-disable-next-line global-require
                 implementation: require('sass'), // Prefer `dart-sass`
                 additionalData: `
-                    @import "@/sass/helper/_variables.scss";
-                    @import "@/sass/helper/_mixin.scss";
-                    @import "@/sass/helper/_placeholders.scss";
+                    @import "@/sass/helpers/";
                 `,
             },
         },

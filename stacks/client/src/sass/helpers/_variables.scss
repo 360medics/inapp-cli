@@ -1,13 +1,13 @@
 // Colors
 $lightColor: #ffffff;
-$darkColor: #182637;
-$primaryColor: #e2996c;
-$secondaryColor: #e12029;
-$tertiaryColor: #fbede5;
+$darkColor: #373F51;
+$primaryColor: #58A4B0;
+$secondaryColor: #DAA49A;
+$tertiaryColor: #A9BCD0;
 $itemDisabledColor: #e4e6e8;
 $textDark: #6b6b6b;
 $borderColor: #060d2c33;
-$backgroundItem: #8a8ab6;
+$backgroundItem: #D8DBE2;
 // FontSize
 $fontSize_small: 0.9375rem;
 $fontSize_medium: 1.0625rem;
@@ -25,7 +25,9 @@ $gutter_large: 2.3125rem;
 $headerArrowIcon_color: $primaryColor;
 $headerArrowIconDisabled_color: $itemDisabledColor;
 $headerCrossIcon_color: $secondaryColor;
-$headerIcon_size: 1.1rem;
+$headerIcon_borderSize: 2px;
+$headerIcon_width: 1.5rem; //* <=== You can change this value for modify icon size from header
+$headerIcon_height: calc(#{$headerIcon_width} - #{$headerIcon_borderSize * 2});
 $headerIcon_gutter: $gutter_large;
 $headerLogo_width: 9.25rem;
 $headerLogo_height: 2rem;
@@ -46,7 +48,6 @@ $page_width: calc(100vw - (#{$page_gutter * 2}));
 // LinkExternal
 $linkExternal_color: $primaryColor;
 // Menu
-$menuItem_shadow: 0 0 4px 1px #060d2c33;
 $menuItem_radius: 8px;
 $menuItem_gutter: $gutter_small;
 $menuItem_color: $darkColor;
@@ -57,5 +58,13 @@ $menuItemIcon_backgroundColor: $primaryColor;
 $menuItemIcon_gutter: 0.5em;
 $submenuItem_backgroundColor: #e5e5e5;
 $submenuItemIcon_gutter: 0.25em;
-$submenuItem_shadow: 0 4px 4px 1px #060d2c33;
+$submenuItem_shadow: 0 0 0 hsla(229, 76%, 10%, 0.2),0 1px 2px hsla(229, 76%, 10%, 0.2),0 2px 4px hsla(229, 76%, 10%, 0.2);
+$submenuItem_dropshadow: 0 1px 1px hsla(229, 76%, 10%, 0.4);
 $submenuItem_corner: 0 0 $menuItemIcon_gutter $menuItemIcon_gutter;
+// Button
+$button_dropshadow: 0 1px 1px hsla(188, 36%, 52%, 0.4);
+$button_bgColor: $primaryColor;
+$button_color: $lightColor;
+$button_fontweight: 400;
+$button_fontSize: 1rem;
+$button_corner: 8px;
