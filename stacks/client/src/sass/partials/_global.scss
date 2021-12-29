@@ -1,0 +1,21 @@
+body {
+    font-family: Helvetica Neue, sans-serif;
+    background-color: $lightColor;
+}
+
+.page {
+    margin-left: $page_gutter;
+    margin-right: $page_gutter;
+    display: flex;
+    justify-content: center;
+    &__scrollable {
+        margin-top: $header_height;
+    }
+}
+
+input {
+	padding: 0.5rem;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid #ccc;
+}
