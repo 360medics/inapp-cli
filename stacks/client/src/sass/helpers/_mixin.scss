@@ -1,0 +1,37 @@
+@mixin positionFixed($top: null, $right: null, $bottom: null, $left: null) {
+    position: fixed;
+    top: $top;
+    left: $left;
+    right: $right;
+    bottom: $bottom;
+}
+
+@mixin circleIcon($color: null) {
+    @extend %flexCenter;
+    margin-left: $headerIcon_gutter;
+    color: $color;
+    border: $headerIcon_borderSize solid $color;
+    border-radius: 50%;
+    &-disabled {
+        @extend %flexCenter;
+        margin-left: $headerIcon_gutter;
+        color: $headerArrowIconDisabled_color;
+        border: $headerIcon_borderSize solid $headerArrowIconDisabled_color;
+        border-radius: 50%;
+    }
+}
+
+// Button
+@mixin btn($btn-padding: 0.5rem, $btn-fontSize: $button_fontSize, $btn-color: $button_color, $btn-bgColor: $button_bgColor,$btn-corner: $button_corner, $btn-fontWeight: $button_fontweight) {
+    @extend %flexCenter;
+    padding: $btn-padding;
+    font-size: $btn-fontSize;
+    color: $btn-color;
+    background-color: $btn-bgColor;
+    border: none;
+    border-radius: $btn-corner;
+    font-weight: $btn-fontWeight;
+    text-transform: uppercase;
+    cursor: pointer;
+    filter: drop-shadow($button_dropshadow);
+}

@@ -1,0 +1,115 @@
+version: 2.1
+
+# Reusable commands:
+commands:
+  populate_env:
+    steps:
+      - run: |
+          mv .env.deploy .env
+          # Populate environment variables
+          sed -i s#%AWS_ACCESS_KEY_ID%#$AWS_ACCESS_KEY_ID#g .env
+          sed -i s#%AWS_SECRET_ACCESS_KEY%#$AWS_SECRET_ACCESS_KEY#g .env
+          sed -i s#%CIRCLE_CI_TOKEN%#$CIRCLE_CI_TOKEN#g .env
+          sed -i s#%NLB_LISTENER_PORT%#$NLB_LISTENER_PORT#g .env
+  populate_client_env:
+    steps:
+      - run: |
+          mv stacks/client/.env.deploy stacks/client/.env
+          # Populate environment variables
+          sed -i s#%API_URL%#$API_URL#g stacks/client/.env
+  install_aws_cli:
+    steps:
+      - run: |
+          # Install AWS CLI
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -q awscliv2.zip
+          sudo ./aws/install
+  install_terraform:
+    steps:
+      - run: |
+          # Install Terraform
+          curl -o terraform.zip https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
+          unzip -q terraform.zip
+          sudo mv terraform /usr/local/bin/
+  install_python:
+    steps:
+      - run: |
+          # Install Python
+          sudo apt-get install software-properties-common
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          sudo apt-get update
+          sudo apt-get install python
+
+jobs:
+  build-docker-image:
+    docker:
+      - image: cimg/base:stable-20.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - populate_env
+      - install_aws_cli
+      - run: |
+          # Building docker image
+          cd deploy
+          bash build-images.sh $PROJECT_NAME
+  deploy-client-application:
+    docker:
+      - image: cimg/node:16.13.0
+    steps:
+      - checkout
+      - populate_client_env
+      - populate_env
+      - install_aws_cli
+      - run: |
+          cd deploy
+          bash put-objects-to-client-bucket.sh
+  deploy:
+    docker:
+      - image: cimg/base:stable-20.04
+    steps:
+      - checkout
+      - populate_env
+      - install_aws_cli
+      - install_terraform
+      - install_python
+      - run: |
+          # Applying terraform
+          cd deploy
+          bash apply.sh dev
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - require_deploy:
+          type: approval
+          filters:
+            branches:
+              only:
+                - master{{if .Backend}}
+      - build-docker-image:
+          context: inapps-test
+          requires:
+            - require_deploy
+          filters:
+            branches:
+              only:
+                - master{{end}}
+      - deploy:
+          context: inapps-test
+          requires:
+            - {{if .Backend}}build-docker-image{{else}}require_deploy{{end}}
+          filters:
+            branches:
+              only:
+                - master{{if .Frontend}}
+      - deploy-client-application:
+          context: inapps-test
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - master{{end}}
