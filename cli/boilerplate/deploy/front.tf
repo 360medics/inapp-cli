@@ -89,7 +89,9 @@ resource "aws_api_gateway_method" "get_bucket_object" {
   authorization    = "NONE"
 
   request_parameters = {
-    "method.request.path.item" = true
+    "method.request.path.item"              = true
+    "method.request.header.Accept"          = true
+    "method.request.header.Accept-Encoding" = true
   }
 }
 
@@ -109,7 +111,9 @@ resource "aws_api_gateway_integration" "s3-integration" {
   credentials = aws_iam_role.s3_api_gateyway_role[0].arn
 
   request_parameters = {
-    "integration.request.path.item" = "method.request.path.item"
+    "integration.request.path.item"              = "method.request.path.item"
+    "integration.request.header.Accept"          = "method.request.header.Accept"
+    "integration.request.header.Accept-Encoding" = "method.request.header.Accept-Encoding"
   }
 }
 
@@ -121,11 +125,14 @@ resource "aws_api_gateway_method_response" "s3-integration-response" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"        = true
-    "method.response.header.Content-Length"   = true
-    "method.response.header.Content-Type"     = true
-    "method.response.header.Content-Encoding" = true
-    "method.response.header.Cache-Control"    = true
+    "method.response.header.Timestamp"           = true
+    "method.response.header.Content-Length"      = true
+    "method.response.header.Content-Type"        = true
+    "method.response.header.Content-Encoding"    = true
+    "method.response.header.Cache-Control"       = true
+    "method.response.header.Content-Disposition" = true
+    "method.response.header.ETag"                = true
+    "method.response.header.Accept-Ranges"       = true
   }
 }
 
@@ -137,11 +144,14 @@ resource "aws_api_gateway_integration_response" "s3-integration-response" {
   status_code = aws_api_gateway_method_response.s3-integration-response[0].status_code
 
   response_parameters = {
-    "method.response.header.Timestamp"        = "integration.response.header.Date"
-    "method.response.header.Content-Length"   = "integration.response.header.Content-Length"
-    "method.response.header.Content-Type"     = "integration.response.header.Content-Type"
-    "method.response.header.Content-Encoding" = "integration.response.header.Content-Encoding"
-    "method.response.header.Cache-Control"    = "integration.response.header.Cache-Control"
+    "method.response.header.Timestamp"           = "integration.response.header.Date"
+    "method.response.header.Content-Length"      = "integration.response.header.Content-Length"
+    "method.response.header.Content-Type"        = "integration.response.header.Content-Type"
+    "method.response.header.Content-Encoding"    = "integration.response.header.Content-Encoding"
+    "method.response.header.Cache-Control"       = "integration.response.header.Cache-Control"
+    "method.response.header.Content-Disposition" = "integration.response.header.Content-Disposition"
+    "method.response.header.ETag"                = "integration.response.header.ETag"
+    "method.response.header.Accept-Ranges"       = "integration.response.header.Accept-Ranges"
   }
 
   depends_on = [
