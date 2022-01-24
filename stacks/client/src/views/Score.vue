@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent, computed, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
-import capitalize from '@/helpers/capitalize'
+import capitalize from '@/utils/capitalize'
 
 export default defineComponent({
     name: 'ScoreViews',
