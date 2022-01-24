@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import isMobile from '@/helpers/isMobile'
+import isMobile from '@/utils/isMobile'
 
 export default defineComponent({
     name: 'LinkComponent',

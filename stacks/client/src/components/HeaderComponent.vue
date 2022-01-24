@@ -19,8 +19,8 @@
 <script lang="ts">
 import { defineComponent, watch, reactive, toRefs } from 'vue'
 import { useRoute } from 'vue-router'
-import isMobile from '@/helpers/isMobile'
-import goBack from '@/helpers/goBack'
+import isMobile from '@/utils/isMobile'
+import goBack from '@/utils/goBack'
 
 export default defineComponent({
     name: 'HeaderComponent',
