@@ -6,12 +6,12 @@ You can find binary on the realease page. You can install it manually or use one
 
 - MacOS (darwin-amd64): 
 ```
-curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.6/inapp-0.0.6-darwin-amd64.tar.gz | tar -zxC /usr/local/bin
+curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.7/inapp-0.0.7-darwin-amd64.tar.gz | tar -zxC /usr/local/bin
 ```
 
 - Linux (linux-amd64): 
 ```
-curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.6/inapp-0.0.6-linux-amd64.tar.gz | tar -zxC /usr/local/bin
+curl -SL https://github.com/360medics/inapp-template/releases/download/0.0.7/inapp-0.0.7-linux-amd64.tar.gz | tar -zxC /usr/local/bin
 ```
 
 ### Or, Build from source
