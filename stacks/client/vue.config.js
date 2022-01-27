@@ -4,6 +4,12 @@ module.exports = defineConfig({
     filenameHashing: true,
     transpileDependencies: true,
     publicPath: '',
+    devServer: {
+        client: {
+            webSocketURL: "ws://0.0.0.0:3000/ws",
+        },
+        host: "0.0.0.0",
+    },
     css: {
         loaderOptions: {
             sass: {
