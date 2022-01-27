@@ -27,3 +27,5 @@ jobs:
           binary_name: "inapp"
           extra_files: LICENSE README.md
           goversion: "https://go.dev/dl/go1.18beta1.linux-amd64.tar.gz"
+          retry: 10
+          overwrite: true
