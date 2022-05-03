@@ -70,6 +70,11 @@ In order to create a new release that automatically builds the CLI and distribut
 
 When you're done, you probably should edit this README.md file to update binaries links.
 
+# Caveats
+* Environements variables are a hell to manage across repositories (generated inapp projects). We cannot fully move to Terraform Cloud and benefit the variables managed by Terraform Cloud because remote apply (using cloud agents, workers) [doesn't support starting the agents from a custom Docker image in the free tier](https://www.terraform.io/cloud-docs/agents). And this module needs to have `python` installed (ssh-tunnel) on the runner / worker / agent.
+
+    If we use the entreprise tier, we would be able to fully use Terraform Cloud, without worry about having variables on each local runner (our computers).
+
 # Need Help ?
 
 You can get support by email at [tech@360medics.com](mailto:tech@360medics.com)
