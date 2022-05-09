@@ -122,13 +122,13 @@ resource "random_password" "db_password" {
 }
 
 # and store it to circleci
-resource "circleci_context_environment_variable" "db_password" {
-  count = "${var.is_backend ? 1 : 0}"
-  provider   = circleci
-  variable   = "DB_PASSWORD"
-  value      = random_password.db_password[0].result
-  context_id = data.circleci_context.task.id
-}
+# resource "circleci_context_environment_variable" "db_password" {
+#   count = "${var.is_backend ? 1 : 0}"
+#   provider   = circleci
+#   variable   = "DB_PASSWORD"
+#   value      = random_password.db_password[0].result
+#   context_id = data.circleci_context.task.id
+# }
 
 // -------------------------------------
 //                  DB
@@ -352,10 +352,10 @@ resource "aws_api_gateway_integration_response" "task" {
 
 # store API_URL in circle context
 # @TODO: dynamic per env
-resource "circleci_context_environment_variable" "api-url" {
-  count = "${var.is_backend ? 1 : 0}"
-  provider   = circleci
-  variable   = "API_URL"
-  value      = "https://inapp-dev.360medics.com/inapps/${var.project}/api"
-  context_id = data.circleci_context.task.id
-}
+# resource "circleci_context_environment_variable" "api-url" {
+#   count = "${var.is_backend ? 1 : 0}"
+#   provider   = circleci
+#   variable   = "API_URL"
+#   value      = "https://inapp-dev.360medics.com/inapps/${var.project}/api"
+#   context_id = data.circleci_context.task.id
+# }

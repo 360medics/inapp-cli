@@ -1,5 +1,10 @@
 terraform {
-  backend "s3" {
+  cloud {
+    organization = "360medics"
+
+    workspaces {
+      tags = ["inapp-{{.Name}}"]
+    }
   }
 
   required_providers {
@@ -57,9 +62,9 @@ provider "circleci" {
   organization = var.circleci_organization_name
 }
 
-data "circleci_context" "task" {
-  name = var.circleci_context_name
-}
+# data "circleci_context" "task" {
+#   name = var.circleci_context_name
+# }
 
 // http://mydomain.com/inapps/${inapp-name} endpoint
 resource "aws_api_gateway_resource" "task-root" {

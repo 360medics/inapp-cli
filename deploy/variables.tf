@@ -26,6 +26,7 @@ variable "az" {
   description = "AWS availability zone to deploy networks on"
   type        = string
 }
+
 variable "aws_access_key" {
   default     = ""
   description = "AWS access key to use for deployment and access to S3 state bucket"
@@ -41,22 +42,25 @@ variable "aws_secret_key" {
 variable "nlb_listener_port" {
   type        = number
   description = "This should be unique for each project (task)"
+  default     = 0
 }
 
 variable "circleci_token" {
   type        = string
   description = "CircleCI token to use to write context env variables"
+  default     = ""
 }
 
 variable "circleci_organization_name" {
   type        = string
   description = "CircleCI Organization name"
+  default     = ""
 }
 
-variable "circleci_context_name" {
-  type        = string
-  description = "CircleCI Context name"
-}
+# variable "circleci_context_name" {
+#   type        = string
+#   description = "CircleCI Context name"
+# }
 
 variable "is_frontend" {
   default     = false
