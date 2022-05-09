@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 # load .env from root project directory
 set -a # automatically export all variables
@@ -42,11 +42,7 @@ export TF_VAR_circleci_context_name=${CIRCLECI_CONTEXT_NAME}
 aws secretsmanager get-secret-value --secret-id bastion_keys| jq --raw-output '.SecretString' | jq -r .private_key_pem > /tmp/bastion.pem
 chmod 600 /tmp/bastion.pem
 
-terraform init \
-     -backend-config "bucket=$TF_VAR_state_bucket_name" \
-     -backend-config "region=$TF_VAR_region" \
-     -backend-config "key=tasks/$TF_VAR_project.$TF_VAR_env" \
-
+terraform init
 terraform apply -auto-approve
 
 # Remove identity
