@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "client" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count  = var.is_frontend ? 1 : 0
   bucket = "360-medics-inapp-${var.project}"
   acl    = "private"
 
@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "client" {
 
 # create S3 Read Access Policy
 resource "aws_iam_policy" "s3_policy" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   name        = "s3-policy-${var.project}"
   description = "Policy for allowing Read the ${var.project} S3 InApp"
 
@@ -37,8 +37,8 @@ EOF
 
 # create API Gateway Role
 resource "aws_iam_role" "s3_api_gateyway_role" {
-  count = "${var.is_frontend ? 1 : 0}"
-  name = "s3-api-gateyway-role-${var.project}"
+  count = var.is_frontend ? 1 : 0
+  name  = "s3-api-gateyway-role-${var.project}"
 
   # create Trust Policy for API Gateway
   assume_role_policy = <<EOF
@@ -60,13 +60,13 @@ EOF
 
 # attach S3 Access Policy to the API Gateway Role
 resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count      = var.is_frontend ? 1 : 0
   role       = aws_iam_role.s3_api_gateyway_role[0].name
   policy_arn = aws_iam_policy.s3_policy[0].arn
 }
 
 resource "aws_api_gateway_resource" "client-root" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.task-root.id
 
@@ -74,14 +74,14 @@ resource "aws_api_gateway_resource" "client-root" {
 }
 
 resource "aws_api_gateway_resource" "get_bucket_object" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.client-root[0].id
   path_part   = "{item+}"
 }
 
 resource "aws_api_gateway_method" "get_bucket_object" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count            = var.is_frontend ? 1 : 0
   rest_api_id      = data.aws_api_gateway_rest_api.main.id
   resource_id      = aws_api_gateway_resource.get_bucket_object[0].id
   http_method      = "GET"
@@ -96,7 +96,7 @@ resource "aws_api_gateway_method" "get_bucket_object" {
 }
 
 resource "aws_api_gateway_integration" "s3-integration" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   resource_id = aws_api_gateway_resource.get_bucket_object[0].id
   http_method = aws_api_gateway_method.get_bucket_object[0].http_method

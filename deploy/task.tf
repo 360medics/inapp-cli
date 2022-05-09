@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count = var.is_backend ? 1 : 0
   # we're in private subnet
   network_configuration {
     subnets         = [data.aws_subnet.private-main.id]
@@ -39,12 +39,12 @@ resource "aws_ecs_service" "task" {
 }
 
 data "aws_ecr_image" "task-image-app" {
-  count = "${var.is_backend ? 1 : 0}"
+  count           = var.is_backend ? 1 : 0
   repository_name = data.aws_ecr_repository.main.name
   image_tag       = var.project
 }
 resource "aws_ecs_task_definition" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count                    = var.is_backend ? 1 : 0
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.inapp-execution-role[0].arn
   container_definitions = jsonencode([
@@ -114,7 +114,7 @@ resource "aws_ecs_task_definition" "task" {
 //          GENERATE PASSWORD
 // -------------------------------------
 resource "random_password" "db_password" {
-  count = "${var.is_backend ? 1 : 0}"
+  count            = var.is_backend ? 1 : 0
   provider         = random
   length           = 16
   special          = true
@@ -134,7 +134,7 @@ resource "random_password" "db_password" {
 //                  DB
 // -------------------------------------
 resource "postgresql_role" "task-role" {
-  count = "${var.is_backend ? 1 : 0}"
+  count    = var.is_backend ? 1 : 0
   provider = postgresql.tunnel
   name     = var.project
   login    = true
@@ -145,7 +145,7 @@ resource "postgresql_role" "task-role" {
 }
 
 resource "postgresql_database" "task-db" {
-  count = "${var.is_backend ? 1 : 0}"
+  count             = var.is_backend ? 1 : 0
   provider          = postgresql.tunnel
   name              = var.project
   owner             = postgresql_role.task-role[0].name
@@ -159,14 +159,14 @@ resource "postgresql_database" "task-db" {
 //                 ROLE
 // -------------------------------------
 resource "aws_iam_role" "inapp-execution-role" {
-  count = "${var.is_backend ? 1 : 0}"
+  count              = var.is_backend ? 1 : 0
   name               = "${var.project}-${var.env}-execution-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
 resource "aws_iam_policy" "logs_and_ecr_read" {
-  count = "${var.is_backend ? 1 : 0}"
-  name = "logs_and_ecr_read"
+  count = var.is_backend ? 1 : 0
+  name  = "logs_and_ecr_read"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -209,7 +209,7 @@ data "aws_iam_policy_document" "assume_role_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_logs_attachment" {
-  count = "${var.is_backend ? 1 : 0}"
+  count      = var.is_backend ? 1 : 0
   role       = aws_iam_role.inapp-execution-role[0].name
   policy_arn = aws_iam_policy.logs_and_ecr_read[0].arn
 }
@@ -218,7 +218,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_logs_attachment" {
 //               NETWORK
 // -------------------------------------
 resource "aws_security_group" "ecs_task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count  = var.is_backend ? 1 : 0
   name   = "ecs_task"
   vpc_id = data.aws_vpc.main.id
 
@@ -242,7 +242,7 @@ resource "aws_security_group" "ecs_task" {
 
 # adds a tcp listener on nlb
 resource "aws_lb_listener" "tcp" {
-  count = "${var.is_backend ? 1 : 0}"
+  count             = var.is_backend ? 1 : 0
   load_balancer_arn = data.aws_lb.nlb-main.id
   # must be above 1024
   port     = var.nlb_listener_port
@@ -256,7 +256,7 @@ resource "aws_lb_listener" "tcp" {
 }
 
 resource "aws_lb_target_group" "main" {
-  count = "${var.is_backend ? 1 : 0}"
+  count       = var.is_backend ? 1 : 0
   name        = "${var.project}-${var.env}"
   port        = 4000
   protocol    = "TCP"
@@ -278,7 +278,7 @@ resource "aws_lb_target_group" "main" {
 #              ROUTING
 # -------------------------------------
 resource "aws_api_gateway_resource" "task-api-root" {
-  count = "${var.is_backend ? 1 : 0}"
+  count       = var.is_backend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.task-root.id
 
@@ -286,7 +286,7 @@ resource "aws_api_gateway_resource" "task-api-root" {
 }
 
 resource "aws_api_gateway_resource" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count       = var.is_backend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.task-api-root[0].id
 
@@ -294,7 +294,7 @@ resource "aws_api_gateway_resource" "task" {
 }
 
 resource "aws_api_gateway_method" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count            = var.is_backend ? 1 : 0
   rest_api_id      = aws_api_gateway_resource.task[0].rest_api_id
   resource_id      = aws_api_gateway_resource.task[0].id
   http_method      = "ANY"
@@ -306,7 +306,7 @@ resource "aws_api_gateway_method" "task" {
 }
 
 resource "aws_api_gateway_integration" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count       = var.is_backend ? 1 : 0
   rest_api_id = aws_api_gateway_method.task[0].rest_api_id
   resource_id = aws_api_gateway_method.task[0].resource_id
   http_method = aws_api_gateway_method.task[0].http_method
@@ -327,7 +327,7 @@ resource "aws_api_gateway_integration" "task" {
 }
 
 resource "aws_api_gateway_method_response" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count       = var.is_backend ? 1 : 0
   rest_api_id = aws_api_gateway_integration.task[0].rest_api_id
   resource_id = aws_api_gateway_integration.task[0].resource_id
   http_method = aws_api_gateway_integration.task[0].http_method
@@ -335,7 +335,7 @@ resource "aws_api_gateway_method_response" "task" {
 }
 
 resource "aws_api_gateway_integration_response" "task" {
-  count = "${var.is_backend ? 1 : 0}"
+  count       = var.is_backend ? 1 : 0
   rest_api_id = aws_api_gateway_integration.task[0].rest_api_id
   resource_id = aws_api_gateway_integration.task[0].resource_id
   http_method = aws_api_gateway_integration.task[0].http_method
