@@ -69,7 +69,7 @@ However, if you're using static datas, we recommand to use a smart data structur
 If the application is showing `pdf` file(s), we recommend to use our pdf viewer in an `iframe`, here is an example:
 ```html
 <iframe
- src="https://f.360medics.com/v2/viewer.html?file=https://med-cdn.ams3.digitaloceanspaces.com/assets/docs/dir69000-69299/69062/main-69062.pdf"
+ src="https://f.360medics.com/v2/web/viewer.html?file=https://med-cdn.ams3.digitaloceanspaces.com/assets/docs/dir69000-69299/69062/main-69062.pdf"
  width="100%"
  height="xxx"
  frameborder="0"
@@ -77,7 +77,7 @@ If the application is showing `pdf` file(s), we recommend to use our pdf viewer 
  allowfullscreen="true"
  ></iframe>
 ```
-Note: You just have to paste the origin `pdf` URL after `https://f.360medics.com/v2/viewer.html?file=`
+Note: You just have to paste the origin `pdf` URL after `https://f.360medics.com/v2/web/viewer.html?file=`
 
 ## Making API calls
 In order to make API calls, we provided an `axios` wrapper in the `helpers` folder named `apiClient`.
