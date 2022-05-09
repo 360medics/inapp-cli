@@ -118,26 +118,27 @@ resource "aws_api_gateway_integration" "s3-integration" {
 }
 
 resource "aws_api_gateway_method_response" "s3-integration-response" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = aws_api_gateway_integration.s3-integration[0].rest_api_id
   resource_id = aws_api_gateway_integration.s3-integration[0].resource_id
   http_method = aws_api_gateway_integration.s3-integration[0].http_method
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"           = true
-    "method.response.header.Content-Length"      = true
-    "method.response.header.Content-Type"        = true
-    "method.response.header.Content-Encoding"    = true
-    "method.response.header.Cache-Control"       = true
-    "method.response.header.Content-Disposition" = true
-    "method.response.header.ETag"                = true
-    "method.response.header.Accept-Ranges"       = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
+    "method.response.header.Content-Encoding"            = true
+    "method.response.header.Cache-Control"               = true
+    "method.response.header.Content-Disposition"         = true
+    "method.response.header.ETag"                        = true
+    "method.response.header.Accept-Ranges"               = true
+    "method.response.header.Access-Control-Allow-Origin" = true
   }
 }
 
 resource "aws_api_gateway_integration_response" "s3-integration-response" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = aws_api_gateway_integration.s3-integration[0].rest_api_id
   resource_id = aws_api_gateway_integration.s3-integration[0].resource_id
   http_method = aws_api_gateway_integration.s3-integration[0].http_method
@@ -152,6 +153,10 @@ resource "aws_api_gateway_integration_response" "s3-integration-response" {
     "method.response.header.Content-Disposition" = "integration.response.header.Content-Disposition"
     "method.response.header.ETag"                = "integration.response.header.ETag"
     "method.response.header.Accept-Ranges"       = "integration.response.header.Accept-Ranges"
+
+    # authorize all hosts to get the bucket object
+    # we sometimes consume pdf, img, etc. from a viewer (f.360medics.com)
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
 
   depends_on = [
