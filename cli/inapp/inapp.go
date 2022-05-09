@@ -194,6 +194,25 @@ func (i *InApp) writeTemplates() error {
 	fmt.Println("processing deploy")
 	err = copy.CopyFromEmbedded(i.boilerplateFS, filepath.Join(boilerPlateDirectory, "deploy"), filepath.Join(i.directory, "deploy"))
 
+	// replace main.tf tfcloud tags section with inapp name
+	mainTfPattern := filepath.Join(boilerPlateDirectory, "deploy", "main.tf")
+	mainTfTemplate, err := template.ParseFS(i.boilerplateFS, mainTfPattern)
+	if err != nil {
+		return err
+	}
+
+	for _, t := range mainTfTemplate.Templates() {
+		fmt.Printf("processing main.tf template: %v\n", t.Name())
+		f, err := os.Create(filepath.Join(i.directory, "deploy", t.Name()))
+		if err != nil {
+			return err
+		}
+		err = t.Execute(f, i)
+		if err != nil {
+			return err
+		}
+	}
+
 	return err
 }
 
