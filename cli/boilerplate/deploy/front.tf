@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "client" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count  = var.is_frontend ? 1 : 0
   bucket = "360-medics-inapp-${var.project}"
   acl    = "private"
 
@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "client" {
 
 # create S3 Read Access Policy
 resource "aws_iam_policy" "s3_policy" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   name        = "s3-policy-${var.project}"
   description = "Policy for allowing Read the ${var.project} S3 InApp"
 
@@ -37,8 +37,8 @@ EOF
 
 # create API Gateway Role
 resource "aws_iam_role" "s3_api_gateyway_role" {
-  count = "${var.is_frontend ? 1 : 0}"
-  name = "s3-api-gateyway-role-${var.project}"
+  count = var.is_frontend ? 1 : 0
+  name  = "s3-api-gateyway-role-${var.project}"
 
   # create Trust Policy for API Gateway
   assume_role_policy = <<EOF
@@ -60,13 +60,13 @@ EOF
 
 # attach S3 Access Policy to the API Gateway Role
 resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count      = var.is_frontend ? 1 : 0
   role       = aws_iam_role.s3_api_gateyway_role[0].name
   policy_arn = aws_iam_policy.s3_policy[0].arn
 }
 
 resource "aws_api_gateway_resource" "client-root" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.task-root.id
 
@@ -74,14 +74,14 @@ resource "aws_api_gateway_resource" "client-root" {
 }
 
 resource "aws_api_gateway_resource" "get_bucket_object" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.client-root[0].id
   path_part   = "{item+}"
 }
 
 resource "aws_api_gateway_method" "get_bucket_object" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count            = var.is_frontend ? 1 : 0
   rest_api_id      = data.aws_api_gateway_rest_api.main.id
   resource_id      = aws_api_gateway_resource.get_bucket_object[0].id
   http_method      = "GET"
@@ -96,7 +96,7 @@ resource "aws_api_gateway_method" "get_bucket_object" {
 }
 
 resource "aws_api_gateway_integration" "s3-integration" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = data.aws_api_gateway_rest_api.main.id
   resource_id = aws_api_gateway_resource.get_bucket_object[0].id
   http_method = aws_api_gateway_method.get_bucket_object[0].http_method
@@ -118,26 +118,27 @@ resource "aws_api_gateway_integration" "s3-integration" {
 }
 
 resource "aws_api_gateway_method_response" "s3-integration-response" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = aws_api_gateway_integration.s3-integration[0].rest_api_id
   resource_id = aws_api_gateway_integration.s3-integration[0].resource_id
   http_method = aws_api_gateway_integration.s3-integration[0].http_method
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"           = true
-    "method.response.header.Content-Length"      = true
-    "method.response.header.Content-Type"        = true
-    "method.response.header.Content-Encoding"    = true
-    "method.response.header.Cache-Control"       = true
-    "method.response.header.Content-Disposition" = true
-    "method.response.header.ETag"                = true
-    "method.response.header.Accept-Ranges"       = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
+    "method.response.header.Content-Encoding"            = true
+    "method.response.header.Cache-Control"               = true
+    "method.response.header.Content-Disposition"         = true
+    "method.response.header.ETag"                        = true
+    "method.response.header.Accept-Ranges"               = true
+    "method.response.header.Access-Control-Allow-Origin" = true
   }
 }
 
 resource "aws_api_gateway_integration_response" "s3-integration-response" {
-  count = "${var.is_frontend ? 1 : 0}"
+  count       = var.is_frontend ? 1 : 0
   rest_api_id = aws_api_gateway_integration.s3-integration[0].rest_api_id
   resource_id = aws_api_gateway_integration.s3-integration[0].resource_id
   http_method = aws_api_gateway_integration.s3-integration[0].http_method
@@ -152,6 +153,10 @@ resource "aws_api_gateway_integration_response" "s3-integration-response" {
     "method.response.header.Content-Disposition" = "integration.response.header.Content-Disposition"
     "method.response.header.ETag"                = "integration.response.header.ETag"
     "method.response.header.Accept-Ranges"       = "integration.response.header.Accept-Ranges"
+
+    # authorize all hosts to get the bucket object
+    # we sometimes consume pdf, img, etc. from a viewer (f.360medics.com)
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
 
   depends_on = [

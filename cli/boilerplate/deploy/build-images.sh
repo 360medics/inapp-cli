@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 # load .env from root project directory
 set -a # automatically export all variables

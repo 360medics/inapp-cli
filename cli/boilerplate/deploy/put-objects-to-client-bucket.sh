@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 set -a # automatically export all variables
 source ../.env
