@@ -1,9 +1,12 @@
 import { createStore, Commit, useStore } from 'vuex'
+import { LocationQueryValue } from 'vue-router'
 import { computed } from 'vue'
 import axios from 'axios'
 import type { Scores, Score } from '@/types'
+import { User } from '@/models'
 
 export interface State {
+    user: User | null
     scores: Scores[]
     score: Score
     selectedMenu: number
@@ -11,11 +14,20 @@ export interface State {
 
 export default createStore({
     state: {
+        user: new User(),
         scores: [],
         score: {} as Score,
         selectedMenu: 0,
     },
+    getters: {
+        isUserAuthenticated (state) {
+            return state.user.uuid
+        }
+    },
     mutations: {
+        SET_USER(state: State, user: User) {
+            state.user = user
+        },
         SET_SCORES(state: State, scores: Scores[]) {
             state.scores = scores
         },
@@ -27,6 +39,21 @@ export default createStore({
         },
     },
     actions: {
+        async authenticateUserFrom360({ commit }: { commit: Commit }, apiKey: LocationQueryValue | LocationQueryValue[]): Promise<void> {
+            try {
+                const headers = {
+                    'Authorization': `Token 4SJxKlCP9ucc6pzVXVv9zurURQ96Um7d`,
+                    'X-User-Api-Key': `${apiKey}`
+                }
+
+                const response = await axios.get(`https://dev.360medics.com/rest/profile`, { headers })
+                const user = new User(response.data)
+                commit('SET_USER', user)
+            } catch (error) {
+                console.error('error', error) // TypeError: failed
+                window.location.href = `https://dev.360medics.com/login?lang=fr`
+            }
+        },
         async getScores({ commit }: { commit: Commit }): Promise<void> {
             try {
                 const response = await axios.get('./dataTree.json')
@@ -57,6 +84,15 @@ export default createStore({
         },
     },
 })
+
+export const useUserStore = () => {
+    const store = useStore<State>()
+    return {
+        user: computed(() => store.state.user),
+        isUserAuthenticated: computed(() => store.getters.isUserAuthenticated),
+        authenticateUserFrom360: (apiKey: LocationQueryValue | LocationQueryValue[]) => store.dispatch('authenticateUserFrom360', apiKey),
+    }
+}
 
 export const useScoresStore = () => {
     const store = useStore<State>()
