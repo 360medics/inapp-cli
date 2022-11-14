@@ -1,0 +1,12 @@
+{
+    "homePage": {
+        "title": "Application d'exemple"
+    },  
+    "modelScorePage": {
+        "hello": "hello world"
+    },
+    "button": {
+        "360": "360",
+        "button": "bouton"
+    }
+}

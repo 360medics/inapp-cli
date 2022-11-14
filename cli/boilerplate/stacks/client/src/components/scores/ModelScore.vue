@@ -1,6 +1,6 @@
 <template>
     <div class="page-content">
-        <h3>Hello World</h3>
+        <h3>{{ $t('modelScorePage.hello') }}</h3>
     </div>
 </template>
 
