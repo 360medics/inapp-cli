@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue"
+import { getNavigatorLanguage, i18n, updateLocale } from "@/i18n"
 import Header from "@/components/HeaderComponent.vue"
 
 export default defineComponent({
@@ -21,7 +22,8 @@ export default defineComponent({
     setup() {
         const isLoading = ref<boolean>(true)
         onMounted(() => {
-            isLoading.value = false   
+            updateLocale(getNavigatorLanguage() || 'en', i18n)
+            isLoading.value = false
         })
 
         return { isLoading }

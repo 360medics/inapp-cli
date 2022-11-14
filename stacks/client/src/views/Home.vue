@@ -8,12 +8,12 @@
         <ScoreList />
         <p>Exemple de petits bouton </p>
         <div class="page-content__container">
-            <ButtonComponent :onClick="showAlert">360</ButtonComponent>
-            <ButtonComponent :onClick="showAlert">360</ButtonComponent>
-            <ButtonComponent :onClick="showAlert">360</ButtonComponent>
-            <ButtonComponent :onClick="showAlert">360</ButtonComponent>
-            <ButtonComponent :onClick="showAlert">360</ButtonComponent>
-            <ButtonComponent :onClick="showAlert">360</ButtonComponent>
+            <ButtonComponent :onClick="showAlert">{{ $t('button.360') }}</ButtonComponent>
+            <ButtonComponent :onClick="showAlert">{{ $t('button.360') }}</ButtonComponent>
+            <ButtonComponent :onClick="showAlert">{{ $t('button.360') }}</ButtonComponent>
+            <ButtonComponent :onClick="showAlert">{{ $t('button.360') }}</ButtonComponent>
+            <ButtonComponent :onClick="showAlert">{{ $t('button.360') }}</ButtonComponent>
+            <ButtonComponent :onClick="showAlert">{{ $t('button.360') }}</ButtonComponent>
         </div>
         <p>Exemple de bouton 'half' </p>
         <div class="page-content__container">
