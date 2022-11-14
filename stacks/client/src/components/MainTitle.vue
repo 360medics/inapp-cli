@@ -9,13 +9,19 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'MainTitle',
-    props: ['title'],
+    props: {
+        title: {
+            type: String,
+            required: true,
+            default: ''
+        }
+    },
 })
 </script>
 
 <style scoped lang="scss">
 h3 {
-    margin: $gutter_large 0;
+    margin: 0 0 $gutter_medium 0;
     font-size: $font_size_big;
     color: $primary_color;
 }

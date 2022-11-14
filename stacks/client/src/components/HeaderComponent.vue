@@ -41,8 +41,7 @@ export default defineComponent({
 .header-bg {
     position: absolute;
     top: 0;
-    left: -35px;
-    width: 110%;
+    width: 100%;
     height: 30%;
     background-image: url('@/assets/header/header-bg.png');
     background-repeat: no-repeat;
@@ -66,7 +65,7 @@ export default defineComponent({
 
     &-logo {
         max-width: $header_logo_width;
-        height: 4rem;
+        height: 3.5rem;
         text-decoration: none;
     }
 

@@ -83,6 +83,7 @@ export default defineComponent({
   flex-flow: column nowrap;
   font-weight: 700;
   margin: $menu_item_gutter 0;
+  max-width: 37.5rem;
   &__items {
     margin-top: $menu_item_gutter;
     //box-shadow: $submenu_item_shadow;

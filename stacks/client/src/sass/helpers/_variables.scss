@@ -31,10 +31,10 @@ $header_icon_height: calc(#{$header_icon_width} - #{$header_icon_borderSize * 2}
 $header_icon_gutter: $gutter_large;
 $header_logo_width: 9.25rem;
 $header_logo_height: 2rem;
-$header_gutter: $gutter_medium;
+$header_gutter: $gutter_small;
 $header_background_color: $light_color;
 $header_width: 100%;
-$header_height: calc(#{$header_logo_height} + (#{$header_gutter * 2}));
+$header_height: calc(#{$header_logo_height} + (#{ $header_gutter }));
 $header_shadow: 0px 1px 1px 1px $border_color;
 $header_radius: 1em;
 // Footer Vars

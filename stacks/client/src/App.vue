@@ -7,19 +7,16 @@
                 <span class="loader"></span>
             </div>
         </main>
-        <Footer />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue"
 import Header from "@/components/HeaderComponent.vue"
-import Footer from "@/components/FooterComponent.vue"
 
 export default defineComponent({
     components: {
         Header,
-        Footer,
     },
     setup() {
         const isLoading = ref<boolean>(true)
@@ -36,7 +33,6 @@ export default defineComponent({
 <style lang="scss">
 @import "./sass";
 #app-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
