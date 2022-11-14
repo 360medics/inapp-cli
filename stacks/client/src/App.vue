@@ -20,7 +20,6 @@ export default defineComponent({
     },
     setup() {
         const isLoading = ref<boolean>(true)
-
         onMounted(() => {
             isLoading.value = false   
         })

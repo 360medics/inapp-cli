@@ -23,7 +23,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     padding: 0 $gutter_large $gutter_large $gutter_large;
-    font-size: $footer_fontSize;
+    font-size: $footer_font_size;
     color: $footer_color;
     }
 </style>

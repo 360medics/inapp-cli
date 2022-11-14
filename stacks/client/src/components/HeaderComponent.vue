@@ -31,7 +31,7 @@ export default defineComponent({
             return route.path !== '/'
         })
 
-        return{ isMobile, goBack,displayChevronSquare }
+        return { isMobile, goBack,displayChevronSquare }
     }
 
 })
