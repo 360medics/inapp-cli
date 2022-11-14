@@ -47,6 +47,7 @@ $shared_shadow: 0 .1875rem .375rem #E9E6FF;
 $page_gutter: $gutter_large;
 $page_height: calc(100vh - #{$header_height});
 $page_width: calc(100vw - (#{$page_gutter * 2}));
+$page_content_shadow: 0 -.25rem 1.9375rem $secondary_color;
 // LinkExternal
 $linkExternal_color: $primary_color;
 // Menu
