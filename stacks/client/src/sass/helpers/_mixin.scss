@@ -6,20 +6,18 @@
     bottom: $bottom;
 }
 
-@mixin circleIcon($color: null) {
+
+@mixin squareIcon($color: null) {
     @extend %flexCenter;
-    margin-left: $headerIcon_gutter;
-    color: $color;
-    border: $headerIcon_borderSize solid $color;
-    border-radius: 50%;
-    &-disabled {
-        @extend %flexCenter;
-        margin-left: $headerIcon_gutter;
-        color: $headerArrowIconDisabled_color;
-        border: $headerIcon_borderSize solid $headerArrowIconDisabled_color;
-        border-radius: 50%;
-    }
+    color: $primary_color;
+    background-color: $light_color;
+    text-decoration: none;
+    border: 0 solid $color;
+    border-radius: 20%;
+    padding: .4rem .6rem;
+    box-shadow: $shared_shadow
 }
+
 
 // Button
 @mixin btn($btn-padding: 0.5rem, $btn-fontSize: $button_fontSize, $btn-color: $button_color, $btn-bgColor: $button_bgColor,$btn-corner: $button_corner, $btn-fontWeight: $button_fontweight) {

@@ -16,7 +16,7 @@ export default defineComponent({
 <style scoped lang="scss">
 h3 {
     margin: $gutter_large 0;
-    font-size: $fontSize_big;
+    font-size: $font_size_big;
     color: $primary_color;
 }
 </style>
