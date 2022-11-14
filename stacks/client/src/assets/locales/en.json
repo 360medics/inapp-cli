@@ -2,6 +2,9 @@
     "homePage": {
         "title": "Example app"
     },
+    "modelScorePage": {
+        "hello": "hello world"
+    },
     "button": {
         "360": "360",
         "button": "button"
