@@ -17,6 +17,6 @@ export default defineComponent({
 h3 {
     margin: $gutter_large 0;
     font-size: $fontSize_big;
-    color: $primaryColor;
+    color: $primary_color;
 }
 </style>

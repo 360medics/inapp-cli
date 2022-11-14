@@ -20,7 +20,7 @@ export default defineComponent({
         top: 50%;
         width: 100%;
         height: 1px;
-        background-color: $borderColor;
+        background-color: $border_color;
     }
 }
 </style>
