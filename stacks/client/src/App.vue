@@ -4,7 +4,7 @@
         <main class="page page__scrollable">
             <router-view v-if="!isLoading"/>
             <div class="loader-content page-content" v-else>
-                <span class="loader"></span>
+                <span class="loader-content__spinner"></span>
             </div>
         </main>
     </div>
@@ -45,20 +45,20 @@ export default defineComponent({
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
-}
 
-.loader {
-    position: relative;
-    bottom: 15rem;
-    width: 50px;
-    height: 50px;
-    border: 5px solid $primary_color;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+    &__spinner {
+        position: relative;
+        bottom: 15rem;
+        width: 50px;
+        height: 50px;
+        border: 5px solid $primary_color;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
     }
+}
 
     @keyframes rotation {
     0% {
