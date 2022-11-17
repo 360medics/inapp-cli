@@ -23,7 +23,7 @@ export default defineComponent({
         const isLoading = ref<boolean>(true)
         onMounted(() => {
             updateLocale(getNavigatorLanguage() || 'en', i18n)
-            isLoading.value = true
+            isLoading.value = false
         })
 
         return { isLoading }
