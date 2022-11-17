@@ -14,7 +14,7 @@ const i18n = createI18n<[MessageSchema], 'fr' | 'en'>({
         en,
     }
 })
-const getNavigatorLanguage  = ():string | undefined => {
+const getNavigatorLanguage = ():string | undefined => {
     return i18n.global.availableLocales.find((lang) => navigator.language.startsWith(lang))
 }
 const updateLocale = (locale: string, i18nInstance: any) => {

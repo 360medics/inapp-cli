@@ -23,7 +23,7 @@ export default defineComponent({
         const isLoading = ref<boolean>(true)
         onMounted(() => {
             updateLocale(getNavigatorLanguage() || 'en', i18n)
-            isLoading.value = false
+            isLoading.value = true
         })
 
         return { isLoading }
@@ -49,8 +49,8 @@ export default defineComponent({
     &__spinner {
         position: relative;
         bottom: 15rem;
-        width: 50px;
-        height: 50px;
+        width: 3rem;
+        height: 3rem;
         border: 5px solid $primary_color;
         border-bottom-color: transparent;
         border-radius: 50%;
