@@ -46,15 +46,15 @@ export default defineComponent({
     background-image: url('@/assets/header/header-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: inset 0 1rem 1rem $light_color;
+    box-shadow: inset 0 1rem 1rem $lightColor;
     opacity: .8;
     z-index: -1;
 }
 
 .header {
-    width: $header_width;
+    width: $headerWidth;
     margin-top: 1rem;
-    padding: $header_gutter 0;
+    padding: $headerGutter 0;
     @extend %flexAlignCenter;
     justify-content: space-between;
     z-index: 10;
@@ -64,7 +64,7 @@ export default defineComponent({
     }
 
     &-logo {
-        max-width: $header_logo_width;
+        max-width: $headerLogoWidth;
         height: 3.5rem;
         text-decoration: none;
     }
@@ -72,11 +72,11 @@ export default defineComponent({
     &-icon {
         &--left {
             margin-left: 1.25rem;
-            @include squareIcon($header_arrow_icon_color);
+            @include squareIcon($headerArrowIconColor);
         }
         &--right {
             margin-right: 1.25rem;
-            @include squareIcon($headerCrossIcon_color);
+            @include squareIcon($headerCrossIconColor);
         }
     }
 }

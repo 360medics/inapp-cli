@@ -1,13 +1,13 @@
 body {
     font-family: Helvetica Neue, sans-serif;
-    background-color: $light_color;
+    background-color: $lightColor;
 }
 
 .page {
     display: flex;
     justify-content: center;
     &__scrollable {
-        margin-top: $header_height;
+        margin-top: $headerHeight;
     }
 }
 

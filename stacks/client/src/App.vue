@@ -3,7 +3,7 @@
         <Header />
         <main class="page page__scrollable">
             <router-view v-if="!isLoading"/>
-            <div class="loader-content page-content" v-else>
+            <div v-else class="loader-content page-content" >
                 <span class="loader-content__spinner"></span>
             </div>
         </main>
@@ -51,7 +51,7 @@ export default defineComponent({
         bottom: 15rem;
         width: 3rem;
         height: 3rem;
-        border: 5px solid $primary_color;
+        border: 5px solid $primaryColor;
         border-bottom-color: transparent;
         border-radius: 50%;
         display: inline-block;
@@ -67,5 +67,5 @@ export default defineComponent({
     100% {
         transform: rotate(360deg);
     }
-} 
+}
 </style>
