@@ -44,12 +44,12 @@ export default defineComponent({
     word-break: break-word;
     user-select: none;
     text-decoration: none;
-    color: $linkExternal_color;
+    color: $linkExternalColor;
     &:active {
-        color: $linkExternal_color;
+        color: $linkExternalColor;
     }
     &:focus {
-        color: $linkExternal_color;
+        color: $linkExternalColor;
         outline: none;
     }
 }

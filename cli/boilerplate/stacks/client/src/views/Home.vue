@@ -75,17 +75,17 @@ export default defineComponent({
 <style lang="scss">
 .page-content {
     width: 100%;
-    background-color: $light_color;
+    background-color: $lightColor;
     border-top-left-radius: 1.875rem;
     border-top-right-radius: 1.875rem;
-    box-shadow: $page_content_shadow;
+    box-shadow: $pageContentShadow;
     padding: 1.5625rem 1.25rem;
     min-height: 100vh;
 
     &__container {
         display: flex;
         justify-content: space-between;
-        margin: $gutter_small 0;
+        margin: $gutterSmall 0;
     }
 }
 </style>

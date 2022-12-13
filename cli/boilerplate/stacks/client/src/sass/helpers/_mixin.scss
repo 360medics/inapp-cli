@@ -9,18 +9,18 @@
 
 @mixin squareIcon($color: null) {
     @extend %flexCenter;
-    color: $primary_color;
-    background-color: $light_color;
+    color: $primaryColor;
+    background-color: $lightColor;
     text-decoration: none;
     border: 0 solid $color;
     border-radius: 20%;
     padding: .4rem .6rem;
-    box-shadow: $shared_shadow
+    box-shadow: $sharedShadow
 }
 
 
 // Button
-@mixin btn($btn-padding: 0.5rem, $btn-fontSize: $button_fontSize, $btn-color: $button_color, $btn-bgColor: $button_bgColor,$btn-corner: $button_corner, $btn-fontWeight: $button_fontweight) {
+@mixin btn($btn-padding: 0.5rem, $btn-fontSize: $buttonFontSize, $btn-color: $buttonColor, $btn-bgColor: $buttonBgColor, $btn-fontWeight: $buttonFontWeight, $btn-corner: $buttonCorner) {
     @extend %flexCenter;
     padding: $btn-padding;
     font-size: $btn-fontSize;
@@ -31,5 +31,5 @@
     font-weight: $btn-fontWeight;
     text-transform: uppercase;
     cursor: pointer;
-    filter: drop-shadow($button_dropshadow);
+    filter: drop-shadow($buttonDropShadow);
 }

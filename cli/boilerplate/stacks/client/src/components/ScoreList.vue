@@ -82,23 +82,23 @@ export default defineComponent({
   display: flex;
   flex-flow: column nowrap;
   font-weight: 700;
-  margin: $menu_item_gutter 0;
+  margin: $menuItemGutter 0;
   max-width: 37.5rem;
   &__items {
-    margin-top: $menu_item_gutter;
-    //box-shadow: $submenu_item_shadow;
-    filter: drop-shadow($submenu_item_dropshadow);
-    border-radius: $menu_item_radius;
+    margin-top: $menuItemGutter;
+    filter: drop-shadow($submenuItemDropShadow);
+    border-radius: $menuItemRadius;
   }
   &__item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $menu_item_gutter;
-    border-radius: $menu_item_radius;
-    color: $menu_item_color;
-    background-color: $menu_item_background_color;
-    font-size: $menu_item_fontsize;
+    padding: $menuItemGutter;
+    border-radius: $menuItemRadius;
+    color: $menuItemColor;
+    background-color: $menuItemBackgroundColor
+;
+    font-size: $menuItemFontSize;
     &--open {
       border-radius: 8px 8px 0 0;
       transition: border-radius 0.1s ease;
@@ -108,11 +108,11 @@ export default defineComponent({
       transition: border-radius 1.35s ease;
     }
     &__icon {
-      border-radius: $menu_item_icon_gutter;
-      padding: $menu_item_icon_gutter;
+      border-radius: $menuItemIconGutter;
+      padding: $menuItemIconGutter;
       margin-left: 1em;
-      color: $menu_item_icon_color;
-      background-color: $menu_item_icon_background_color;
+      color: $menuItemIconColor;
+      background-color: $menuItemIconBackgroundColor;
     }
   }
 }
@@ -121,17 +121,17 @@ export default defineComponent({
   border-radius: 0 0 8px 8px;
 
   &__items {
-    background-color: $menu_item_background_color;
+    background-color: $menuItemBackgroundColor;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 $menu_item_icon_gutter;
+    padding: 0 $menuItemIconGutter;
     &:first-child > .submenu__item {
       margin-top: 0;
     }
     &:last-child {
-      border-radius: $submenu_item_corner;
-      padding-bottom: $menu_item_icon_gutter;
+      border-radius: $submenuItemCorner;
+      padding-bottom: $menuItemIconGutter;
     }
   }
   &__item {
@@ -139,11 +139,11 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     text-decoration: none;
-    color: $menu_item_color;
-    background-color: $submenu_item_background_color;
-    padding: $menu_item_icon_gutter $gutter_small;
-    margin: $submenu_item_icon_gutter;
-    border-radius: $menu_item_radius;
+    color: $menuItemColor;
+    background-color: $submenuItemBackgroundColor;
+    padding: $menuItemIconGutter $gutterSmall;
+    margin: $submenuItemIconGutter;
+    border-radius: $menuItemRadius;
     &__arrow {
       display: flex;
       align-items: center;
