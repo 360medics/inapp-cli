@@ -3,6 +3,7 @@ module.exports = {
     env: {
         node: true,
     },
+    parser: 'vue-eslint-parser',
     extends: [
         'plugin:vue/vue3-essential',
         'eslint:recommended',
@@ -11,6 +12,8 @@ module.exports = {
         // as airbnb use react style import and not Vue style import
     ],
     parserOptions: {
+        parser: '@typescript-eslint/parser',
+        sourceType: 'module',
         ecmaVersion: 2020,
     },
     rules: {
@@ -28,7 +31,12 @@ module.exports = {
         'no-unused-vars': ['error', { 'argsIgnorePattern': 'next' }],
         'no-use-before-define': ['error', { 'functions': false }],
         'object-curly-newline': ['error', { 'ImportDeclaration': 'never' }],
-        semi: ['error', 'never', { 'beforeStatementContinuationChars': 'always'}],
+        'object-curly-spacing': ['error',"always"],
+        'no-useless-return': "error",
+        'no-multiple-empty-lines': ["error", { "max": 1, "maxEOF": 0 }],
+        'eol-last': ["error", "always"],
+        'keyword-spacing': ["error", { "before": true }],
+        semi: ['error', 'never', { 'beforeStatementContinuationChars': 'always' }],
         // taken from usual 360 vue projects
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -43,15 +51,6 @@ module.exports = {
                 closeBracket: 0,
                 alignAttributesVertically: true,
                 ignores: [],
-            },
-        ],
-        'no-param-reassign': [
-            'error',
-            {
-                props: true,
-                ignorePropertyModificationsFor: [
-                    'state', // for vuex state
-                ],
             },
         ],
     },

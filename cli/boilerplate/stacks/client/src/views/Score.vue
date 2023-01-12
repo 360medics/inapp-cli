@@ -21,3 +21,9 @@ export default defineComponent({
     },
 })
 </script>
+
+<style scoped lang="scss">
+.score {
+    width: 100%;
+}
+</style>
