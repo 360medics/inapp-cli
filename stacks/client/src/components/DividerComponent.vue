@@ -13,7 +13,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .divider {
     position: relative;
-    padding: $gutter_large 0;
+    padding: $gutterLarge 0;
     &:after {
         content: '';
         position: absolute;

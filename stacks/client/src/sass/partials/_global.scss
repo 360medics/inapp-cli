@@ -4,12 +4,10 @@ body {
 }
 
 .page {
-    margin-left: $page_gutter;
-    margin-right: $page_gutter;
     display: flex;
     justify-content: center;
     &__scrollable {
-        margin-top: $header_height;
+        margin-top: $headerHeight;
     }
 }
 

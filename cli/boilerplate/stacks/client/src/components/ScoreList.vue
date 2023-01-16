@@ -82,22 +82,23 @@ export default defineComponent({
   display: flex;
   flex-flow: column nowrap;
   font-weight: 700;
-  margin: $menuItem_gutter 0;
+  margin: $menuItemGutter 0;
+  max-width: 37.5rem;
   &__items {
-    margin-top: $menuItem_gutter;
-    //box-shadow: $submenuItem_shadow;
-    filter: drop-shadow($submenuItem_dropshadow);
-    border-radius: $menuItem_radius;
+    margin-top: $menuItemGutter;
+    filter: drop-shadow($submenuItemDropShadow);
+    border-radius: $menuItemRadius;
   }
   &__item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $menuItem_gutter;
-    border-radius: $menuItem_radius;
-    color: $menuItem_color;
-    background-color: $menuItem_backgroundColor;
-    font-size: $menuItem_fontsize;
+    padding: $menuItemGutter;
+    border-radius: $menuItemRadius;
+    color: $menuItemColor;
+    background-color: $menuItemBackgroundColor
+;
+    font-size: $menuItemFontSize;
     &--open {
       border-radius: 8px 8px 0 0;
       transition: border-radius 0.1s ease;
@@ -107,11 +108,11 @@ export default defineComponent({
       transition: border-radius 1.35s ease;
     }
     &__icon {
-      border-radius: $menuItemIcon_gutter;
-      padding: $menuItemIcon_gutter;
+      border-radius: $menuItemIconGutter;
+      padding: $menuItemIconGutter;
       margin-left: 1em;
-      color: $menuItemIcon_color;
-      background-color: $menuItemIcon_backgroundColor;
+      color: $menuItemIconColor;
+      background-color: $menuItemIconBackgroundColor;
     }
   }
 }
@@ -120,17 +121,17 @@ export default defineComponent({
   border-radius: 0 0 8px 8px;
 
   &__items {
-    background-color: $menuItem_backgroundColor;
+    background-color: $menuItemBackgroundColor;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 $menuItemIcon_gutter;
+    padding: 0 $menuItemIconGutter;
     &:first-child > .submenu__item {
       margin-top: 0;
     }
     &:last-child {
-      border-radius: $submenuItem_corner;
-      padding-bottom: $menuItemIcon_gutter;
+      border-radius: $submenuItemCorner;
+      padding-bottom: $menuItemIconGutter;
     }
   }
   &__item {
@@ -138,11 +139,11 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     text-decoration: none;
-    color: $menuItem_color;
-    background-color: $submenuItem_backgroundColor;
-    padding: $menuItemIcon_gutter $gutter_small;
-    margin: $submenuItemIcon_gutter;
-    border-radius: $menuItem_radius;
+    color: $menuItemColor;
+    background-color: $submenuItemBackgroundColor;
+    padding: $menuItemIconGutter $gutterSmall;
+    margin: $submenuItemIconGutter;
+    border-radius: $menuItemRadius;
     &__arrow {
       display: flex;
       align-items: center;
