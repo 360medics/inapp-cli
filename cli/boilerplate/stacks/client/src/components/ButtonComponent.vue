@@ -36,7 +36,7 @@ export default {
     // you can edit btn mixin args... => padding, fontSize, color, backgroundColor, cornerSize, fontWeight
     @include btn();
     &__halfsize {
-        min-width: calc(50% - $gutter_small/2);
+        min-width: calc(50% - $gutterSmall/2);
     }
     &__fullsize {
         min-width: 100%;

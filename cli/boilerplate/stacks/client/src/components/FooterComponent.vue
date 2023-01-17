@@ -22,8 +22,8 @@ export default defineComponent({
 .footer {
     display: flex;
     flex-direction: column;
-    padding: 0 $gutter_large $gutter_large $gutter_large;
-    font-size: $footer_fontSize;
-    color: $footer_color;
+    padding: 0 $gutterLarge $gutterLarge $gutterLarge;
+    font-size: $footerFontSize;
+    color: $footerColor;
     }
 </style>
