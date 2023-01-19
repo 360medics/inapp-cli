@@ -8,7 +8,7 @@ export class User {
         this.hydrate(data)
     }
 
-    private hydrate(data?: any) { 
+    private hydrate(data?: any) {
         for (const prop in data) {
 
             if (Object.prototype.hasOwnProperty.call(this, prop) && Object.prototype.hasOwnProperty.call(data, prop)) {
