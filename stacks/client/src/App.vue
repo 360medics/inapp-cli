@@ -1,10 +1,10 @@
 <template>
-    <template v-if="isUserAuthenticated">
+    <template v-if="isUserAuthenticated || isLocalEnvironnement">
         <div id="app-container">
             <Header />
             <main class="page page__scrollable">
                 <router-view v-if="!isLoading"/>
-                <div v-else class="loader-content page-content" >
+                <div v-else class="loader-content page-content">
                     <span class="loader-content__spinner"></span>
                 </div>
             </main>
@@ -39,18 +39,24 @@ export default defineComponent({
         const route = useRoute()
         const router = useRouter()
         const { authenticateUserFrom360, isUserAuthenticated } = useUserStore()
+        const isLocalEnvironnement = ref<boolean>(false)
 
         onMounted(async () => {
-            await router.isReady()
-            const { apiKey } = route.query
-            await authenticateUserFrom360(apiKey)
+            if (process.env.NODE_ENV !== "development") {
+                await router.isReady()
+                const { apiKey } = route.query
+                await authenticateUserFrom360(apiKey)
+            } else {
+                isLocalEnvironnement.value = true
+            }
             updateLocale(getNavigatorLanguage() || 'en', i18n)
             isLoading.value = false
         })
 
         return {
             isUserAuthenticated,
-            isLoading
+            isLocalEnvironnement,
+            isLoading,
         }
     }
 })

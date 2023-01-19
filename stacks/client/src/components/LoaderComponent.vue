@@ -1,7 +1,6 @@
 <template>
-    <div class="spinner">
-        <div class="spinner__circle spinner__circle--1"></div>
-        <div class="spinner__circle spinner__circle--2"></div>
+    <div class="loader-content page-content">
+        <span class="loader-content__spinner"></span>
     </div>
 </template>
 
@@ -14,36 +13,32 @@ export default defineComponent({
 </script>
 
 <style  lang="scss" scoped>
-.spinner {
-    box-sizing: border-box;
-    width: 60px;
-    height: 60px;
-    border-radius: 100%;
-    position: relative;
-    margin: auto;
-    &__circle {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 100%;
-        border: calc(60px / 10) solid transparent;
-        &--1 {
-            border-top-color: #202023;
-            animation: half-circle-spinner-animation 1s infinite;
-        }
-        &--2 {
-            border-bottom-color: #202023;
-            animation: half-circle-spinner-animation 1s infinite alternate;
-        }
+.loader-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    &__spinner {
+        position: relative;
+        bottom: 15rem;
+        width: 3rem;
+        height: 3rem;
+        border: 5px solid $primaryColor;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
     }
 }
 
-@keyframes half-circle-spinner-animation {
+    @keyframes rotation {
     0% {
         transform: rotate(0deg);
-
     }
-    100%{
+    100% {
         transform: rotate(360deg);
     }
 }
