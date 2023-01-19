@@ -4,6 +4,7 @@ import { computed } from 'vue'
 import axios from 'axios'
 import type { Scores, Score } from '@/types'
 import { User } from '@/models'
+import { getEnvironmentUrl } from '@/utils/getEnvironmentUrl'
 
 export interface State {
     user: User | null
@@ -45,13 +46,12 @@ export default createStore({
                     'Authorization': `Token 4SJxKlCP9ucc6pzVXVv9zurURQ96Um7d`,
                     'X-User-Api-Key': `${apiKey}`
                 }
-
-                const response = await axios.get(`https://dev.360medics.com/rest/profile`, { headers })
+                const response = await axios.get(`${getEnvironmentUrl()}/rest/profile`, { headers })
                 const user = new User(response.data)
                 commit('SET_USER', user)
             } catch (error) {
                 console.error('error', error) // TypeError: failed
-                window.location.href = `https://dev.360medics.com/login?lang=fr`
+                window.location.href = getEnvironmentUrl()
             }
         },
         async getScores({ commit }: { commit: Commit }): Promise<void> {
