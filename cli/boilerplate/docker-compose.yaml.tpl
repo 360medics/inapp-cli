@@ -38,7 +38,10 @@ services:{{if .Backend}}
       - ./stacks/client/public:/opt/client/public
     environment:
       - PORT=${CLIENT_PORT}
-      - VUE_APP_API_URL=http://localhost:${API_PORT}{{end}}
+      - VUE_APP_API_URL=http://localhost:${API_PORT}
+      - VUE_APP_PROD_360=${PROD_URL}
+      - VUE_APP_BETA_360=${BETA_URL}
+      - VUE_APP_TOKEN_AUTH=${TOKEN}{{end}}
 {{if .Backend}}volumes:
   db_data:
 {{end}}

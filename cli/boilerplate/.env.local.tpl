@@ -31,3 +31,10 @@ CIRCLECI_CONTEXT_NAME=inapps-${PROJECT_NAME}
 
 ### This must be >1034 and should not already be used by the NLB on AWS
 NLB_LISTENER_PORT=0000
+
+### token authentification
+TOKEN=Token 4SJxKlCP9ucc6pzVXVv9zurURQ96Um7d
+
+### environment 360medics
+BETA_URL=https://beta.360medics.com
+PROD_URL=https://360medics.com

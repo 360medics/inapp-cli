@@ -1,32 +1,63 @@
 <template>
-    <div id="app-container">
-        <Header />
-        <main class="page page__scrollable">
-            <router-view v-if="!isLoading"/>
-            <div v-else class="loader-content page-content" >
-                <span class="loader-content__spinner"></span>
-            </div>
-        </main>
-    </div>
+    <template v-if="isUserAuthenticated || isLocalEnvironnement">
+        <div id="app-container">
+            <Header />
+            <main class="page page__scrollable">
+                <router-view v-if="!isLoading"/>
+                <div v-else class="loader-content page-content">
+                    <span class="loader-content__spinner"></span>
+                </div>
+            </main>
+            <Footer />
+        </div>
+    </template>
+
+    <template v-else>
+        <div id="app-container">
+            <Loader />
+        </div>
+    </template>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue"
-import { getNavigatorLanguage, i18n, updateLocale } from "@/i18n"
+import { useRoute, useRouter } from 'vue-router'
+import Footer from "@/components/FooterComponent.vue"
 import Header from "@/components/HeaderComponent.vue"
+import Loader from "@/components/LoaderComponent.vue"
+import { useUserStore } from '@/store'
+import { getNavigatorLanguage, i18n, updateLocale } from "@/i18n"
 
 export default defineComponent({
     components: {
+        Footer,
         Header,
+        Loader
     },
     setup() {
         const isLoading = ref<boolean>(true)
-        onMounted(() => {
+        const route = useRoute()
+        const router = useRouter()
+        const { authenticateUserFrom360, isUserAuthenticated } = useUserStore()
+        const isLocalEnvironnement = ref<boolean>(false)
+
+        onMounted(async () => {
+            if (process.env.NODE_ENV !== "development") {
+                await router.isReady()
+                const { apiKey } = route.query
+                await authenticateUserFrom360(apiKey)
+            } else {
+                isLocalEnvironnement.value = true
+            }
             updateLocale(getNavigatorLanguage() || 'en', i18n)
             isLoading.value = false
         })
 
-        return { isLoading }
+        return {
+            isUserAuthenticated,
+            isLocalEnvironnement,
+            isLoading,
+        }
     }
 })
 </script>
