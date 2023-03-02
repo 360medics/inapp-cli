@@ -43,7 +43,7 @@ export default createStore({
         async authenticateUserFrom360({ commit }: { commit: Commit }, apiKey: LocationQueryValue | LocationQueryValue[]): Promise<void> {
             try {
                 const headers = {
-                    'Authorization': `Token 4SJxKlCP9ucc6pzVXVv9zurURQ96Um7d`,
+                    'Authorization': `${process.env.VUE_APP_TOKEN_AUTH}`,
                     'X-User-Api-Key': `${apiKey}`
                 }
                 const response = await axios.get(`${getEnvironmentUrl()}/rest/profile`, { headers })
