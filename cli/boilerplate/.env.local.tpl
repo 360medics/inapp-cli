@@ -33,7 +33,7 @@ CIRCLECI_CONTEXT_NAME=inapps-${PROJECT_NAME}
 NLB_LISTENER_PORT=0000
 
 ### token authentification
-TOKEN=Token 4SJxKlCP9ucc6pzVXVv9zurURQ96Um7d
+TOKEN=
 
 ### environment 360medics
 BETA_URL=https://beta.360medics.com
