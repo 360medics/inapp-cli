@@ -39,6 +39,8 @@ services:
     environment:
       - PORT=${CLIENT_PORT}
       - VUE_APP_API_URL=http://localhost:${API_PORT}
-
+      - VUE_APP_PROD_360=${PROD_URL}
+      - VUE_APP_BETA_360=${BETA_URL}
+      - VUE_APP_TOKEN_AUTH=${TOKEN}
 volumes:
   db_data:
